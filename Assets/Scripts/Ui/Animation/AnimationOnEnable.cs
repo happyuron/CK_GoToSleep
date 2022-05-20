@@ -24,63 +24,67 @@ public struct AnimationInfo<T>
 
     [field: NonSerialized] public Vector2 DefaultScale { get; set; }
 }
-public class AnimationOnEnable : MonoBehaviour
+namespace GoToSleep
 {
-    [SerializeField]
-    private AnimationInfo<RectTransform>[] _animationInfos;
-
-    private void Awake()
+    public class AnimationOnEnable : MonoBehaviour
     {
-        for (int i = 0; i < _animationInfos.Length; i++)
-        {
-            SetDefault(ref _animationInfos[i]);
-        }
+        [SerializeField]
+        private AnimationInfo<RectTransform>[] _animationInfos;
 
-        static void SetDefault(ref AnimationInfo<RectTransform> info)
+        private void Awake()
         {
-            var target = info.Target;
-
-            if (target.gameObject.GetComponent<CanvasGroup>() == null)
+            for (int i = 0; i < _animationInfos.Length; i++)
             {
-                target.gameObject.AddComponent<CanvasGroup>();
+                SetDefault(ref _animationInfos[i]);
             }
 
-            info.DefaultPosition = target.anchoredPosition;
-            info.DefaultScale = new Vector2(target.localScale.x, target.localScale.z);
-        }
-    }
+            static void SetDefault(ref AnimationInfo<RectTransform> info)
+            {
+                var target = info.Target;
 
-    private void OnEnable()
-    {
-        foreach (var info in _animationInfos)
+                if (target.gameObject.GetComponent<CanvasGroup>() == null)
+                {
+                    target.gameObject.AddComponent<CanvasGroup>();
+                }
+
+                info.DefaultPosition = target.anchoredPosition;
+                info.DefaultScale = new Vector2(target.localScale.x, target.localScale.z);
+            }
+        }
+
+        private void OnEnable()
         {
-            Animate(in info);
+            foreach (var info in _animationInfos)
+            {
+                Animate(in info);
+            }
         }
-    }
 
-    private static void Animate(in AnimationInfo<RectTransform> info)
-    {
-        var transform = info.Target;
-        if (!transform.gameObject.activeInHierarchy)
+        private static void Animate(in AnimationInfo<RectTransform> info)
         {
-            return;
+            var transform = info.Target;
+            if (!transform.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
+            var group = transform.gameObject.GetComponent<CanvasGroup>();
+
+            transform.anchoredPosition = info.DefaultPosition + info.StartPosition;
+            transform.localScale = ToVector3Scale(info.StartScale);
+            group.alpha = info.DoFade ? 0f : 1f;
+
+            DOTween.Sequence()
+                .SetLink(info.Target.gameObject, LinkBehaviour.KillOnDisable)
+                .AppendCallback(() => group.interactable = false)
+                .AppendInterval(info.WaitTime)
+                .Append(transform.DOAnchorPos(info.DefaultPosition, info.Duration).SetEase(info.EaseType))
+                .Join(transform.DOScale(ToVector3Scale(info.DefaultScale), info.Duration).SetEase(info.EaseType))
+                .Join(group.DOFade(1f, info.Duration).SetEase(info.EaseType))
+                .AppendCallback(() => group.interactable = true);
+
+            static Vector3 ToVector3Scale(Vector2 scale) => new(scale.x, 1, scale.y);
         }
-
-        var group = transform.gameObject.GetComponent<CanvasGroup>();
-
-        transform.anchoredPosition = info.DefaultPosition + info.StartPosition;
-        transform.localScale = ToVector3Scale(info.StartScale);
-        group.alpha = info.DoFade ? 0f : 1f;
-
-        DOTween.Sequence()
-            .SetLink(info.Target.gameObject, LinkBehaviour.KillOnDisable)
-            .AppendCallback(() => group.interactable = false)
-            .AppendInterval(info.WaitTime)
-            .Append(transform.DOAnchorPos(info.DefaultPosition, info.Duration).SetEase(info.EaseType))
-            .Join(transform.DOScale(ToVector3Scale(info.DefaultScale), info.Duration).SetEase(info.EaseType))
-            .Join(group.DOFade(1f, info.Duration).SetEase(info.EaseType))
-            .AppendCallback(() => group.interactable = true);
-
-        static Vector3 ToVector3Scale(Vector2 scale) => new(scale.x, 1, scale.y);
     }
+
 }
