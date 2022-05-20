@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace GoToSleep
+namespace GoToSleep.Object
 {
     public class EveryObj : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        public Transform Tr { get; set; }
 
+        protected virtual void Awake()
+        {
+            Tr = GetComponent<Transform>();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
+        
 
-        }
     }
 
 }
