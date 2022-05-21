@@ -11,10 +11,15 @@ namespace GoToSleep.Object
 
         protected virtual void Awake()
         {
+            Init();
+        }
+
+        protected virtual void Init()
+        {
             Tr = GetComponent<Transform>();
         }
 
-        
+
 
     }
 
