@@ -6,7 +6,9 @@ namespace GoToSleep.Object
 {
     public class PlayerPart<T> : MonoBehaviour where T : PlayerPart<T>
     {
-        [HideInInspector] public Player player;
+        public Player Player { get; private set; }
+
+        public Transform Tr { get; private set; }
 
         public Rigidbody2D Rigid { get; protected set; }
 
@@ -17,11 +19,12 @@ namespace GoToSleep.Object
 
         protected virtual void Init()
         {
-            player = GetComponent<Player>();
+            Player = GetComponent<Player>();
             Rigid = GetComponent<Rigidbody2D>();
-            if (player == null)
+            Tr = GetComponent<Transform>();
+            if (Player == null)
             {
-                player = FindObjectOfType<Player>();
+                Player = FindObjectOfType<Player>();
             }
         }
     }

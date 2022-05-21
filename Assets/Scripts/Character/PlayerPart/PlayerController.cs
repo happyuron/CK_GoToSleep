@@ -14,6 +14,8 @@ namespace GoToSleep.Object
 
         private InputAction attack;
 
+        private InputAction jump;
+
 
 
         protected override void Init()
@@ -22,31 +24,37 @@ namespace GoToSleep.Object
             playerControls = new PlayerInputAction();
             move = playerControls.Player.Move;
             attack = playerControls.Player.Fire;
+            jump = playerControls.Player.Jump;
             move.performed += Move;
             attack.performed += Attack;
+            jump.performed += Jump;
         }
 
         private void OnEnable()
         {
             move.Enable();
+            jump.Enable();
+            attack.Enable();
         }
 
         private void Move(InputAction.CallbackContext ctx)
         {
-            player.move.MoveRight(ctx.ReadValue<Vector2>().x);
+            Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Move");
+        }
+        public void Jump(InputAction.CallbackContext ctx)
+        {
+            Debug.Log("Jump");
+            Player.Move.Jump();
         }
 
         private void OnDisable()
         {
+            attack.Disable();
             move.Disable();
-        }
-        public void DebugLog()
-        {
-            Debug.Log("Hello");
+            jump.Disable();
         }
     }
 }
