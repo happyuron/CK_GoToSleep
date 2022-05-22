@@ -53,7 +53,8 @@ namespace GoToSleep.Object
             if (curJumpCount < jumpCount)
             {
                 StopAllCoroutines();
-                wallCheck = isClimbing ? 0 : moveVelocityX;
+                wallCheck = moveVelocityX;
+                wallCheck = CheckWall() ? 0 : moveVelocityX;
                 isJumping = true;
                 isClimbing = false;
                 Rigid.gravityScale = 1;
