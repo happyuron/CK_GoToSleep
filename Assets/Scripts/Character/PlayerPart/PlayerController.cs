@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 namespace GoToSleep.Object
 {
-    public class PlayerController : PlayerPart<PlayerController>
+    public class PlayerAnimation
+    {
+        public static Animator defaultAnim;
+        public static void PlayerAnimInteger(string name, int index, Animator anim = null)
+        {
+            anim = anim ?? defaultAnim;
+            anim.SetInteger(name, index);
+        }
+    }
+    public class PlayerController : PlayerPart<Player>
     {
         public PlayerInputAction playerControls;
 

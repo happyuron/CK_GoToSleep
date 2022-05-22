@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
-    public class PlayerPart<T> : MonoBehaviour where T : PlayerPart<T>
+    public class PlayerPart<T> : MonoBehaviour where T : Character
     {
-        public Player Player { get; private set; }
+        public T Player { get; private set; }
 
         public Transform Tr { get; private set; }
 
@@ -19,13 +19,18 @@ namespace GoToSleep.Object
 
         protected virtual void Init()
         {
-            Player = GetComponent<Player>();
+            Player = GetComponent<T>();
             Rigid = GetComponent<Rigidbody2D>();
             Tr = GetComponent<Transform>();
             if (Player == null)
             {
-                Player = FindObjectOfType<Player>();
+                Player = FindObjectOfType<T>();
             }
+        }
+
+        public T GetPartType()
+        {
+            return GetComponent<T>();
         }
     }
 }

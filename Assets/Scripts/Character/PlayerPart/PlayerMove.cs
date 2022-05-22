@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
-    public class PlayerMove : PlayerPart<PlayerMove>
+    public class PlayerMove : PlayerPart<Player>
     {
         public Vector3 offset;
         public Vector2 size;
@@ -17,6 +17,7 @@ namespace GoToSleep.Object
         private float jumpStrength => Player.JumpStrength;
 
         private bool isJumping;
+
         private bool isMoving;
 
 
