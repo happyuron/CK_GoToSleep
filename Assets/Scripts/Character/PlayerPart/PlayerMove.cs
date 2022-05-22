@@ -10,20 +10,35 @@ namespace GoToSleep.Object
         public Vector2 size;
 
         public LayerMask hitLayer;
+
+        public int jumpCount;
+
+        public float wallCheckDistance;
+
+
         private float moveVelocityX;
+
+
+        private float wallCheck;
 
         private float moveSpeed => Player.MoveSpeed;
 
         private float jumpStrength => Player.JumpStrength;
 
-        private bool isJumping;
+        public bool isJumping;
 
-        private bool isMoving;
+        public bool isMoving;
 
+        private int curJumpCount;
+
+        public bool isClimbing;
 
         public void MoveRight(float valueX)
         {
+            isMoving = valueX == 0 ? false : true;
             moveVelocityX = valueX;
+            if (!isClimbing)
+                wallCheck = moveVelocityX;
         }
 
         private bool CheckGround()
@@ -35,34 +50,73 @@ namespace GoToSleep.Object
 
         public void Jump()
         {
-            if (!isJumping)
+            if (curJumpCount < jumpCount)
             {
-                Rigid.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+                StopAllCoroutines();
+                wallCheck = isClimbing ? 0 : moveVelocityX;
                 isJumping = true;
+                isClimbing = false;
+                Rigid.gravityScale = 1;
+                curJumpCount++;
+                Rigid.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             }
         }
 
-        public void FallingCheck()
+        private void FallingCheck()
         {
-            if (isJumping && Rigid.velocity.y <= 0)
+            if (isJumping)
             {
-                if (CheckGround())
+                if (CheckWall())
+                {
+                    isMoving = false;
+                    isClimbing = true;
+                    Rigid.gravityScale = 0;
+                    StartCoroutine(ClimbingWhileSeconds(2));
+                    Rigid.velocity = Vector2.zero;
+                    isJumping = false;
+                    curJumpCount--;
+                }
+                else if (CheckGround() && Rigid.velocity.y <= 0)
                 {
                     isJumping = false;
+                    curJumpCount = 0;
                 }
             }
+            else if ((!CheckWall() || CheckGround()) && isClimbing)
+            {
+                Debug.Log("GroundCheck");
+                Rigid.gravityScale = 1;
+                isClimbing = false;
+                isJumping = false;
+                curJumpCount = 0;
+            }
+        }
+        private IEnumerator ClimbingWhileSeconds(float time)
+        {
+            yield return new WaitForSeconds(time);
+            Rigid.gravityScale = .5f;
+        }
+
+
+        private RaycastHit2D CheckWall()
+        {
+            RaycastHit2D tmp = Physics2D.Raycast(Tr.position, new Vector2(wallCheck, 0).normalized, wallCheckDistance, hitLayer);
+            return tmp;
         }
 
         private void Update()
         {
-            Rigid.velocity = new Vector2(moveVelocityX * moveSpeed, Rigid.velocity.y);
+            if (!isClimbing)
+                Rigid.velocity = new Vector2(moveVelocityX * moveSpeed, Rigid.velocity.y);
             FallingCheck();
+
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(transform.position + offset, size);
+            Gizmos.DrawLine(transform.position, transform.position + new Vector3(wallCheck, 0, 0).normalized * wallCheckDistance);
         }
 
     }
