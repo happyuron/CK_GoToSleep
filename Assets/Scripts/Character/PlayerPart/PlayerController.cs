@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 namespace GoToSleep.Object
 {
     public class PlayerAnimation
@@ -40,29 +41,39 @@ namespace GoToSleep.Object
 
         private void OnEnable()
         {
+            ConnectController();
+        }
+
+        public void ConnectController()
+        {
             move.Enable();
             jump.Enable();
             attack.Enable();
         }
-
+        public void DIsconnectController()
+        {
+            attack.Disable();
+            move.Disable();
+            jump.Disable();
+        }
         private void Move(InputAction.CallbackContext ctx)
         {
+
             Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
+
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
+            
         }
         public void Jump(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Jump");
             Player.Move.Jump();
         }
 
         private void OnDisable()
         {
-            attack.Disable();
-            move.Disable();
-            jump.Disable();
+            DIsconnectController();
         }
     }
 }

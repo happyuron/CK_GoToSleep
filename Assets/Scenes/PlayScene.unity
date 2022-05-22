@@ -797,13 +797,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: -0.53, z: 0}
   size: {x: 0.93, y: 0.06}
-  hitLayer:
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  wallLayer:
     serializedVersion: 2
     m_Bits: 1
   jumpCount: 2
   wallCheckDistance: 0.52
   isJumping: 0
   isMoving: 0
+  isClimbing: 0
 --- !u!114 &1659109230
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ namespace GoToSleep.Manager
 {
     public class GameManager : Singleton<GameManager>
     {
-        
+
+
     }
 }

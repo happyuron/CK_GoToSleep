@@ -9,15 +9,17 @@ namespace GoToSleep.Object
         public Vector3 offset;
         public Vector2 size;
 
-        public LayerMask hitLayer;
+        public LayerMask groundLayer;
+
+        public LayerMask wallLayer;
 
         public int jumpCount;
 
         public float wallCheckDistance;
 
+        private int curJumpCount;
 
         private float moveVelocityX;
-
 
         private float wallCheck;
 
@@ -25,13 +27,11 @@ namespace GoToSleep.Object
 
         private float jumpStrength => Player.JumpStrength;
 
-        public bool isJumping;
+        private bool isJumping;
 
-        public bool isMoving;
+        private bool isMoving;
 
-        private int curJumpCount;
-
-        public bool isClimbing;
+        private bool isClimbing;
 
         public void MoveRight(float valueX)
         {
@@ -43,7 +43,7 @@ namespace GoToSleep.Object
 
         private bool CheckGround()
         {
-            Collider2D result = Physics2D.OverlapBox(Tr.position + offset, size, 0, hitLayer);
+            Collider2D result = Physics2D.OverlapBox(Tr.position + offset, size, 0, groundLayer);
 
             return result;
         }
@@ -101,7 +101,7 @@ namespace GoToSleep.Object
 
         private RaycastHit2D CheckWall()
         {
-            RaycastHit2D tmp = Physics2D.Raycast(Tr.position, new Vector2(wallCheck, 0).normalized, wallCheckDistance, hitLayer);
+            RaycastHit2D tmp = Physics2D.Raycast(Tr.position, new Vector2(wallCheck, 0).normalized, wallCheckDistance, wallLayer);
             return tmp;
         }
 

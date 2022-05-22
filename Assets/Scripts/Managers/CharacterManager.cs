@@ -14,5 +14,11 @@ namespace GoToSleep.Manager
             base.Init();
             Player = FindObjectOfType<Player>();
         }
+
+
+        public T GetPartType<T>() where T : PlayerPart<Player>
+        {
+            return Player.GetComponent<T>() ?? FindObjectOfType<T>() ?? Player.gameObject.AddComponent<T>();
+        }
     }
 }

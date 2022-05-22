@@ -19,7 +19,11 @@ namespace GoToSleep.Object
 
         [field: SerializeField] public float JumpStrength { get; private set; }
 
+        [field: SerializeField] public int Hp { get; private set; }
+
         public PlayerState CurState { get; private set; }
+
+
 
 
 
@@ -43,6 +47,8 @@ namespace GoToSleep.Object
         {
             return CurState == PlayerState.Idle || CurState == PlayerState.Move || CurState == PlayerState.Jump;
         }
+
+
     }
 
 }
