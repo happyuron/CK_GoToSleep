@@ -6,14 +6,17 @@ namespace GoToSleep.Object
 {
     public class PlayerAttack : PlayerPart<Player>
     {
-        public WeaponInfo weapon;
+        public Weapon weapon;
 
-        [field: SerializeField] public SpriteRenderer Renderer { get; private set; }
 
+        private void Start()
+        {
+            weapon = GetComponentInChildren<Weapon>();
+        }
 
         public void WeaponUpdate()
         {
-            
+
         }
     }
 }

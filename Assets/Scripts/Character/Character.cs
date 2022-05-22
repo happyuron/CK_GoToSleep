@@ -7,16 +7,14 @@ namespace GoToSleep
 {
     public class Character : EveryObj
     {
-        // Start is called before the first frame update
-        void Start()
+        public SpriteRenderer spriteRenderer;
+
+
+        protected override void Init()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            base.Init();
+            if (spriteRenderer == null)
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
     }
 }

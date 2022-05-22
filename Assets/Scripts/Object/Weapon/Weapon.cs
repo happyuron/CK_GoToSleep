@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoToSleep.Manager;
 
 namespace GoToSleep.Object
 {
@@ -10,10 +11,13 @@ namespace GoToSleep.Object
     public class Weapon : MonoBehaviour, IAttackType<Weapon>
     {
         public WeaponInfo WeaponInformation { get; protected set; }
-        protected virtual void Awake()
-        {
 
+        protected Player Player { get; set; }
+        protected virtual void Start()
+        {
+            Player = CharacterManager.Instance.Player;
         }
+        
 
     }
 }

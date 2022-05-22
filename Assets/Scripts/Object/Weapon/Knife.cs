@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
-    interface IMeleeAttack : IAttackType<Weapon>
-    {
-    }
     public class Knife : Weapon
     {
 

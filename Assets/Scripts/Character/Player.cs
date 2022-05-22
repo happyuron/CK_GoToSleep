@@ -25,8 +25,6 @@ namespace GoToSleep.Object
 
 
 
-
-
         protected override void Init()
         {
             base.Init();
@@ -48,6 +46,10 @@ namespace GoToSleep.Object
             return CurState == PlayerState.Idle || CurState == PlayerState.Move || CurState == PlayerState.Jump;
         }
 
+        public int GetFlip()
+        {
+            return spriteRenderer.flipX ? -1 : 1;
+        }
 
     }
 

@@ -8,16 +8,16 @@ namespace GoToSleep.Object
     [CreateAssetMenu(fileName = "Weapon", menuName = "Object/Weapon")]
     public class WeaponInfo : ScriptableObject
     {
-        public readonly string weaponName;
+        [field: SerializeField] public string WeaponName;
 
-        public readonly string description;
+        [field: SerializeField] public string Description;
 
-        public readonly int attackDamage;
+        [field: SerializeField] public int AttackDamage;
 
-        public readonly bool isLongDistance;
+        [field: SerializeField] public bool IsLongDistance;
 
-        public readonly GameObject bulletPrefeb;
+        [field: SerializeField] public GameObject BulletPrefeb;
 
-        public readonly GameObject damagedEffect;
+        [field: SerializeField] public GameObject DamageEffect;
     }
 }
