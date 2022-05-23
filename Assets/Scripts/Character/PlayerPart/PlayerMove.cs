@@ -17,6 +17,11 @@ namespace GoToSleep.Object
 
         public float wallCheckDistance;
 
+        public bool IsJumping { get; private set; }
+
+        public bool IsMoving { get; private set; }
+
+        public bool IsClimbing { get; private set; }
         private int curJumpCount;
 
         private float moveVelocityX;
@@ -25,24 +30,34 @@ namespace GoToSleep.Object
 
         private float moveSpeed => Player.MoveSpeed;
 
+        private float speed;
+
         private float jumpStrength => Player.JumpStrength;
 
-        private bool isJumping;
+        private float runSpeed => Player.RunSpeed;
 
-        private bool isMoving;
-
-        private bool isClimbing;
 
         public void MoveRight(float valueX)
         {
-            isMoving = valueX == 0 ? false : true;
+            speed = moveSpeed;
+            IsMoving = valueX == 0 ? false : true;
             if (valueX > 0)
                 Player.spriteRenderer.flipX = false;
             else if (valueX < 0)
                 Player.spriteRenderer.flipX = true;
             moveVelocityX = valueX;
-            if (!isClimbing)
+            if (!IsClimbing)
                 wallCheck = moveVelocityX;
+        }
+
+        public void Run(bool value)
+        {
+            if (IsMoving && !IsJumping)
+            {
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
+                PlayerAnimation.PlayerAnimInteger("Blend Normal", 3);
+                speed = value ? runSpeed : moveSpeed;
+            }
         }
 
         private bool CheckGround()
@@ -59,8 +74,8 @@ namespace GoToSleep.Object
                 StopAllCoroutines();
                 wallCheck = moveVelocityX;
                 wallCheck = CheckWall() ? 0 : moveVelocityX;
-                isJumping = true;
-                isClimbing = false;
+                IsJumping = true;
+                IsClimbing = false;
                 Rigid.gravityScale = 1;
                 curJumpCount++;
                 Rigid.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
@@ -69,30 +84,30 @@ namespace GoToSleep.Object
 
         private void FallingCheck()
         {
-            if (isJumping)
+            if (IsJumping)
             {
                 if (CheckWall())
                 {
-                    isMoving = false;
-                    isClimbing = true;
+                    IsMoving = false;
+                    IsClimbing = true;
                     Rigid.gravityScale = 0;
                     StartCoroutine(ClimbingWhileSeconds(2));
                     Rigid.velocity = Vector2.zero;
-                    isJumping = false;
+                    IsJumping = false;
                     curJumpCount--;
                 }
                 else if (CheckGround() && Rigid.velocity.y <= 0)
                 {
-                    isJumping = false;
+                    IsJumping = false;
                     curJumpCount = 0;
                 }
             }
-            else if ((!CheckWall() || CheckGround()) && isClimbing)
+            else if ((!CheckWall() || CheckGround()) && IsClimbing)
             {
                 Debug.Log("GroundCheck");
                 Rigid.gravityScale = 1;
-                isClimbing = false;
-                isJumping = false;
+                IsClimbing = false;
+                IsJumping = false;
                 curJumpCount = 0;
             }
         }
@@ -111,8 +126,8 @@ namespace GoToSleep.Object
 
         private void Update()
         {
-            if (!isClimbing)
-                Rigid.velocity = new Vector2(moveVelocityX * moveSpeed, Rigid.velocity.y);
+            if (!IsClimbing)
+                Rigid.velocity = new Vector2(moveVelocityX * speed, Rigid.velocity.y);
             FallingCheck();
 
         }

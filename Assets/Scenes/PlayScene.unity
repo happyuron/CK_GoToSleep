@@ -385,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ecdfd1ecf1ac2b4cac569f7f3e31894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Hp>k__BackingField: 0
   spriteRenderer: {fileID: 283575040}
 --- !u!212 &283575040
 SpriteRenderer:
@@ -1029,10 +1030,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663614005f545b04a8199669c9225990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Hp>k__BackingField: 0
   spriteRenderer: {fileID: 282445522}
   <MoveSpeed>k__BackingField: 4
   <JumpStrength>k__BackingField: 5
-  <Hp>k__BackingField: 0
+  <RunSpeed>k__BackingField: 8
 --- !u!114 &1659109231
 MonoBehaviour:
   m_ObjectHideFlags: 0

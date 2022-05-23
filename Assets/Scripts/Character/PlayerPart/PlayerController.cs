@@ -25,6 +25,8 @@ namespace GoToSleep.Object
 
         private InputAction jump;
 
+        private InputAction run;
+
 
 
         protected override void Init()
@@ -34,9 +36,11 @@ namespace GoToSleep.Object
             move = playerControls.Player.Move;
             attack = playerControls.Player.Fire;
             jump = playerControls.Player.Jump;
+            run = playerControls.Player.Run;
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
+            run.performed += Run;
         }
 
         private void OnEnable()
@@ -49,12 +53,14 @@ namespace GoToSleep.Object
             move.Enable();
             attack.Enable();
             jump.Enable();
+            run.Enable();
         }
         public void DIsconnectController()
         {
             move.Disable();
             attack.Disable();
             jump.Disable();
+            run.Disable();
         }
         private void Move(InputAction.CallbackContext ctx)
         {
@@ -65,10 +71,36 @@ namespace GoToSleep.Object
         public void Attack(InputAction.CallbackContext ctx)
         {
             PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
+            if (Keyboard.current.downArrowKey.isPressed && Player.IsJumping)
+            {
+                PlayerAnimation.PlayerAnimInteger("Blend Attack", 0);
+            }
+            else if (Keyboard.current.upArrowKey.isPressed)
+            {
+                PlayerAnimation.PlayerAnimInteger("Blend Attack", 1);
+            }
+            else
+            {
+                PlayerAnimation.PlayerAnimInteger("Blend Attack", 2);
+            }
+
         }
         public void Jump(InputAction.CallbackContext ctx)
         {
             Player.Move.Jump();
+        }
+
+        public void Run(InputAction.CallbackContext ctx)
+        {
+            if (Keyboard.current.shiftKey.wasPressedThisFrame)
+            {
+                Player.Move.Run(true);
+            }
+            else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
+            {
+                Debug.Log("ss");
+                Player.Move.Run(false);
+            }
         }
 
         private void OnDisable()

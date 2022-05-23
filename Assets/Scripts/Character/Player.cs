@@ -18,13 +18,15 @@ namespace GoToSleep.Object
         public Animator Anim { get; private set; }
 
         [field: SerializeField] public float MoveSpeed { get; private set; }
-
         [field: SerializeField] public float JumpStrength { get; private set; }
-
-
+        [field: SerializeField] public float RunSpeed { get; private set; }
         public PlayerState CurState { get; private set; }
 
+        public bool IsJumping => Move.IsJumping;
 
+        public bool IsClimbing => Move.IsClimbing;
+
+        public bool IsMoving => Move.IsMoving;
 
         protected override void Init()
         {
