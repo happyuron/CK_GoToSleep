@@ -64,7 +64,7 @@ namespace GoToSleep.Object
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            Player.Attack.Attack();
+            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
         }
         public void Jump(InputAction.CallbackContext ctx)
         {

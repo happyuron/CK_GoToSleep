@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 282445521}
   - component: {fileID: 282445522}
   - component: {fileID: 282445523}
+  - component: {fileID: 282445524}
   m_Layer: 6
   m_Name: Sprites
   m_TagString: Untagged
@@ -329,7 +330,7 @@ Animator:
   m_GameObject: {fileID: 282445520}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3dbab1a72ddee5d4d85ea7cda6bc34ce, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -339,6 +340,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &282445524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282445520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a72ad5c7f691a4ca3bd4bb2ee252a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &283575038
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659109222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.71, y: 4.63, z: 0}
+  m_LocalPosition: {x: 0.05, y: 2.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1032,6 +1046,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
+  curAttackCount: 0
+  curUponAttackCount: 0
+  curDownAttackCount: 0
 --- !u!1 &1867290153
 GameObject:
   m_ObjectHideFlags: 0

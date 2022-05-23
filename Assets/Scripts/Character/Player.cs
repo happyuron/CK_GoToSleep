@@ -7,7 +7,7 @@ namespace GoToSleep.Object
 {
     public enum PlayerState
     {
-        Idle, Move, Jump, Attack, Dead
+        Normal, Jump, Attack, Dead
     }
     public class Player : Character
     {
@@ -21,7 +21,6 @@ namespace GoToSleep.Object
 
         [field: SerializeField] public float JumpStrength { get; private set; }
 
-        [field: SerializeField] public int Hp { get; private set; }
 
         public PlayerState CurState { get; private set; }
 
@@ -46,7 +45,7 @@ namespace GoToSleep.Object
         }
         public bool IsNormalState()
         {
-            return CurState == PlayerState.Idle || CurState == PlayerState.Move || CurState == PlayerState.Jump;
+            return CurState == PlayerState.Normal;
         }
 
     }

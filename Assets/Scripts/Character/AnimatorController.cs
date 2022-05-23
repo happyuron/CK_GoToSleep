@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoToSleep.Manager;
 
-namespace GoToSleep
+namespace GoToSleep.Object
 {
     public class AnimatorController : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public Player player;
+        private void Start()
         {
-        
+            player = CharacterManager.Instance.Player ?? FindObjectOfType<Player>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void HorizontalAttack()
         {
-        
+            player.Attack.Attack();
         }
+
     }
 }

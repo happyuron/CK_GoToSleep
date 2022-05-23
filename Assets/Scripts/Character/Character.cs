@@ -7,6 +7,7 @@ namespace GoToSleep
 {
     public class Character : EveryObj
     {
+        [field: SerializeField] public int Hp { get; private set; }
         public SpriteRenderer spriteRenderer;
 
 
