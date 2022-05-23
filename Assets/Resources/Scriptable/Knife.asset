@@ -12,3 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6516acdb6ea7ab42939f4b469537352, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
+  WeaponName: 
+  Description: 
+  AttackDamage: 0
+  DamageEffect: {fileID: 0}
+  attackInfos:
+  - Offset: {x: 1, y: 0, z: 0}
+    Size: {x: 1, y: 1}
+    <Damage>k__BackingField: 5
+  - Offset: {x: 1.5, y: 0.5, z: 0}
+    Size: {x: 2, y: 2}
+    <Damage>k__BackingField: 6
+  - Offset: {x: 3.56, y: 0, z: 0}
+    Size: {x: 2, y: 1}
+    <Damage>k__BackingField: 10
+  uponAttackInfos:
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  downAttackInfos:
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0

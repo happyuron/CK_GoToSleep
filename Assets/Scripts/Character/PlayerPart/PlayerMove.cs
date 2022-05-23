@@ -36,6 +36,10 @@ namespace GoToSleep.Object
         public void MoveRight(float valueX)
         {
             isMoving = valueX == 0 ? false : true;
+            if (valueX > 0)
+                Player.spriteRenderer.flipX = false;
+            else if (valueX < 0)
+                Player.spriteRenderer.flipX = true;
             moveVelocityX = valueX;
             if (!isClimbing)
                 wallCheck = moveVelocityX;

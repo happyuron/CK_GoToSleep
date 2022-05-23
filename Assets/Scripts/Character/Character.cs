@@ -16,5 +16,10 @@ namespace GoToSleep
             if (spriteRenderer == null)
                 spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
+
+        public void GetDamaged(int damage)
+        {
+            Debug.Log("the object got the" + damage + "damages");
+        }
     }
 }

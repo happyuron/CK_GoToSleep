@@ -47,13 +47,13 @@ namespace GoToSleep.Object
         public void ConnectController()
         {
             move.Enable();
-            jump.Enable();
             attack.Enable();
+            jump.Enable();
         }
         public void DIsconnectController()
         {
-            attack.Disable();
             move.Disable();
+            attack.Disable();
             jump.Disable();
         }
         private void Move(InputAction.CallbackContext ctx)
@@ -64,7 +64,7 @@ namespace GoToSleep.Object
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            
+            Player.Attack.Attack();
         }
         public void Jump(InputAction.CallbackContext ctx)
         {

@@ -8,15 +8,21 @@ namespace GoToSleep.Object
     {
         public Weapon weapon;
 
+        public int curAttackCount;
+
+        public int curUponAttackCount;
+
+        public int curDownAttackCount;
+
 
         private void Start()
         {
             weapon = GetComponentInChildren<Weapon>();
         }
 
-        public void WeaponUpdate()
+        public void Attack()
         {
-
+            weapon.Attack(ref curAttackCount);
         }
     }
 }
