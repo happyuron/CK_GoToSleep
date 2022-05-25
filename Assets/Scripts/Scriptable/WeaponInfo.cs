@@ -17,18 +17,20 @@ namespace GoToSleep.Object
     [CreateAssetMenu(fileName = "Weapon", menuName = "Object/Weapon")]
     public class WeaponInfo : ScriptableObject
     {
-        [field: SerializeField] public string WeaponName;
+        [field: SerializeField] public string WeaponName { get; private set; }
 
-        [field: SerializeField] public string Description;
+        [field: SerializeField] public string Description { get; private set; }
 
-        [field: SerializeField] public int AttackDamage;
+        [field: SerializeField] public int AttackDamage { get; private set; }
 
-        [field: SerializeField] public GameObject DamageEffect;
+        [field: SerializeField] public float AttackCooltime { get; private set; }
 
-        public AttackInfo[] attackInfos;
+        [field: SerializeField] public GameObject DamageEffect { get; private set; }
 
-        public AttackInfo[] uponAttackInfos;
+        [field: SerializeField] public AttackInfo[] AttackInfos { get; private set; }
 
-        public AttackInfo[] downAttackInfos;
+        [field: SerializeField] public AttackInfo[] UponAttackInfos { get; private set; }
+
+        [field: SerializeField] public AttackInfo[] DownAttackInfos { get; private set; }
     }
 }

@@ -13,9 +13,14 @@ namespace GoToSleep.Object
             player = CharacterManager.Instance.Player ?? FindObjectOfType<Player>();
         }
 
-        public void HorizontalAttack()
+        public void Attack()
         {
             player.Attack.Attack();
+        }
+
+        public void StartCooltime()
+        {
+            player.Attack.StartCooltime();
         }
 
     }

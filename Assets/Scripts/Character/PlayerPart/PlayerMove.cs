@@ -55,7 +55,7 @@ namespace GoToSleep.Object
             if (IsMoving && !IsJumping)
             {
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
-                PlayerAnimation.PlayerAnimInteger("Blend Normal", 3);
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 3);
                 speed = value ? runSpeed : moveSpeed;
             }
         }

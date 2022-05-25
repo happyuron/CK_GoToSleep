@@ -29,9 +29,9 @@ namespace GoToSleep.Object
 
         protected virtual void Awake()
         {
-            attackCount = WeaponInformation.attackInfos.Length;
-            uponAttackCount = WeaponInformation.uponAttackInfos.Length;
-            downAttackCount = WeaponInformation.downAttackInfos.Length;
+            attackCount = WeaponInformation.AttackInfos.Length;
+            uponAttackCount = WeaponInformation.UponAttackInfos.Length;
+            downAttackCount = WeaponInformation.DownAttackInfos.Length;
         }
 
         protected virtual void Start()

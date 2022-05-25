@@ -40,6 +40,15 @@ namespace GoToSleep.Object
             }
         }
 
+        public void PlayAttackAnimation(int attackIndex)
+        {
+            if (Attack.GetCoolTime() <= 0)
+            {
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
+                PlayerAnimation.PlayerAnimFloat("Blend Attack", attackIndex);
+            }
+
+        }
 
         public bool IsDead()
         {

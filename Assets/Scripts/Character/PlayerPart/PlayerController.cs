@@ -14,6 +14,11 @@ namespace GoToSleep.Object
             anim = anim ?? defaultAnim;
             anim.SetInteger(name, index);
         }
+        public static void PlayerAnimFloat(string name, float index, Animator anim = null)
+        {
+            anim = anim ?? defaultAnim;
+            anim.SetFloat(name, index);
+        }
     }
     public class PlayerController : PlayerPart<Player>
     {
@@ -70,20 +75,8 @@ namespace GoToSleep.Object
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
-            if (Keyboard.current.downArrowKey.isPressed && Player.IsJumping)
-            {
-                PlayerAnimation.PlayerAnimInteger("Blend Attack", 0);
-            }
-            else if (Keyboard.current.upArrowKey.isPressed)
-            {
-                PlayerAnimation.PlayerAnimInteger("Blend Attack", 1);
-            }
-            else
-            {
-                PlayerAnimation.PlayerAnimInteger("Blend Attack", 2);
-            }
-
+            int index = Keyboard.current.downArrowKey.isPressed && Player.IsJumping ? 0 : Keyboard.current.upArrowKey.isPressed ? 1 : 2;
+            Player.PlayAttackAnimation(index);
         }
         public void Jump(InputAction.CallbackContext ctx)
         {

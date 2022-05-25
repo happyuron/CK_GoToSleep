@@ -8,11 +8,13 @@ namespace GoToSleep.Object
     {
         public Weapon weapon;
 
-        public int curAttackCount;
+        private int curAttackCount;
 
-        public int curUponAttackCount;
+        private int curUponAttackCount;
 
-        public int curDownAttackCount;
+        private int curDownAttackCount;
+
+        private float curAttackCooltime;
 
 
         private void Start()
@@ -37,6 +39,24 @@ namespace GoToSleep.Object
             curAttackCount = 0;
             curUponAttackCount = 0;
             weapon.DownAttack(ref curDownAttackCount);
+        }
+        private IEnumerator UpdateCooltime()
+        {
+            curAttackCooltime = weapon.WeaponInformation.AttackCooltime;
+            while (curAttackCooltime > 0)
+            {
+                yield return null;
+                curAttackCooltime -= Time.deltaTime;
+            }
+        }
+
+        public float GetCoolTime()
+        {
+            return curAttackCooltime;
+        }
+        public void StartCooltime()
+        {
+            StartCoroutine(UpdateCooltime());
         }
     }
 }

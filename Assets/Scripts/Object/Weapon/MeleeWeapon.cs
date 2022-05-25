@@ -26,13 +26,13 @@ namespace GoToSleep.Object
 
         public override void Attack(ref int index)
         {
-            var enemies = CheckBoxOverlap(WeaponInformation.attackInfos, index);
+            var enemies = CheckBoxOverlap(WeaponInformation.AttackInfos, index);
             for (int i = 0; i < enemies.Length; i++)
             {
                 Enemy enemy = enemies[i].GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.GetDamaged(WeaponInformation.attackInfos[index].Damage);
+                    enemy.GetDamaged(WeaponInformation.AttackInfos[index].Damage);
                 }
             }
             index = index < attackCount - 1 ? index + 1 : 0;
@@ -50,23 +50,23 @@ namespace GoToSleep.Object
 
         protected virtual void OnDrawGizmos()
         {
-            for (int i = 0; i < WeaponInformation.attackInfos.Length; i++)
+            for (int i = 0; i < WeaponInformation.AttackInfos.Length; i++)
             {
                 Gizmos.color = Color.white;
-                Vector3 tmp = new Vector3(WeaponInformation.attackInfos[i].Offset.x * GetFlip(), WeaponInformation.attackInfos[i].Offset.y);
-                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.attackInfos[i].Size);
+                Vector3 tmp = new Vector3(WeaponInformation.AttackInfos[i].Offset.x * GetFlip(), WeaponInformation.AttackInfos[i].Offset.y);
+                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.AttackInfos[i].Size);
             }
-            for (int i = 0; i < WeaponInformation.downAttackInfos.Length; i++)
+            for (int i = 0; i < WeaponInformation.DownAttackInfos.Length; i++)
             {
                 Gizmos.color = Color.black;
-                Vector3 tmp = new Vector3(WeaponInformation.downAttackInfos[i].Offset.x * GetFlip(), WeaponInformation.downAttackInfos[i].Offset.y);
-                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.downAttackInfos[i].Size);
+                Vector3 tmp = new Vector3(WeaponInformation.DownAttackInfos[i].Offset.x * GetFlip(), WeaponInformation.DownAttackInfos[i].Offset.y);
+                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.DownAttackInfos[i].Size);
             }
-            for (int i = 0; i < WeaponInformation.uponAttackInfos.Length; i++)
+            for (int i = 0; i < WeaponInformation.UponAttackInfos.Length; i++)
             {
                 Gizmos.color = Color.blue;
-                Vector3 tmp = new Vector3(WeaponInformation.uponAttackInfos[i].Offset.x * GetFlip(), WeaponInformation.uponAttackInfos[i].Offset.y);
-                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.uponAttackInfos[i].Size);
+                Vector3 tmp = new Vector3(WeaponInformation.UponAttackInfos[i].Offset.x * GetFlip(), WeaponInformation.UponAttackInfos[i].Offset.y);
+                Gizmos.DrawWireCube(transform.position + tmp, WeaponInformation.UponAttackInfos[i].Size);
             }
         }
 
