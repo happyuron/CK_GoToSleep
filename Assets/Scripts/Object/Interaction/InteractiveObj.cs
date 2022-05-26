@@ -17,7 +17,6 @@ namespace GoToSleep.Object
         {
             if (other != null)
             {
-                Debug.Log("Update");
                 target.interactiveObj = this;
             }
         }
@@ -25,7 +24,6 @@ namespace GoToSleep.Object
         {
             if (target.interactiveObj == this)
             {
-                Debug.Log("Distroy");
                 target.interactiveObj = null;
             }
         }

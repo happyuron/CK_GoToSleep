@@ -46,6 +46,7 @@ namespace GoToSleep.Object
         {
             if (Attack.GetCoolTime() <= 0)
             {
+                Debug.Log(attackIndex);
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
                 PlayerAnimation.PlayerAnimFloat("Blend Attack", attackIndex);
             }

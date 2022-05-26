@@ -32,6 +32,7 @@ namespace GoToSleep.Object
 
         private InputAction run;
 
+        private InputAction interact;
 
 
         protected override void Init()
@@ -42,10 +43,12 @@ namespace GoToSleep.Object
             attack = playerControls.Player.Fire;
             jump = playerControls.Player.Jump;
             run = playerControls.Player.Run;
+            interact = playerControls.Player.Interaction;
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
             run.performed += Run;
+            interact.performed += Interacte;
         }
 
         private void OnEnable()
@@ -59,6 +62,7 @@ namespace GoToSleep.Object
             attack.Enable();
             jump.Enable();
             run.Enable();
+            interact.Enable();
         }
         public void DIsconnectController()
         {
@@ -66,12 +70,11 @@ namespace GoToSleep.Object
             attack.Disable();
             jump.Disable();
             run.Disable();
+            interact.Disable();
         }
         private void Move(InputAction.CallbackContext ctx)
         {
-
             Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
-
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
@@ -91,8 +94,15 @@ namespace GoToSleep.Object
             }
             else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
             {
-                Debug.Log("ss");
                 Player.Move.Run(false);
+            }
+        }
+
+        public void Interacte(InputAction.CallbackContext ctx)
+        {
+            if (Player.interactiveObj != null)
+            {
+                Player.interactiveObj.Interacte();
             }
         }
 
