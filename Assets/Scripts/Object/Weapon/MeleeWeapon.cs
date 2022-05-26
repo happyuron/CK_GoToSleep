@@ -40,12 +40,30 @@ namespace GoToSleep.Object
 
         public override void UponAttack(ref int index)
         {
-
+            var enemies = CheckBoxOverlap(WeaponInformation.UponAttackInfos, index);
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy enemy = enemies[i].GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.GetDamaged(WeaponInformation.UponAttackInfos[index].Damage);
+                }
+            }
+            index = index < attackCount - 1 ? index + 1 : 0;
         }
 
         public override void DownAttack(ref int index)
         {
-
+            var enemies = CheckBoxOverlap(WeaponInformation.DownAttackInfos, index);
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy enemy = enemies[i].GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.GetDamaged(WeaponInformation.DownAttackInfos[index].Damage);
+                }
+            }
+            index = index < attackCount - 1 ? index + 1 : 0;
         }
 
         protected virtual void OnDrawGizmos()

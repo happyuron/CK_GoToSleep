@@ -21,12 +21,14 @@ namespace GoToSleep.Object
         [field: SerializeField] public float JumpStrength { get; private set; }
         [field: SerializeField] public float RunSpeed { get; private set; }
         public PlayerState CurState { get; private set; }
+        public InteractiveObj interactiveObj;
 
         public bool IsJumping => Move.IsJumping;
 
         public bool IsClimbing => Move.IsClimbing;
 
         public bool IsMoving => Move.IsMoving;
+
 
         protected override void Init()
         {
@@ -47,7 +49,6 @@ namespace GoToSleep.Object
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
                 PlayerAnimation.PlayerAnimFloat("Blend Attack", attackIndex);
             }
-
         }
 
         public bool IsDead()

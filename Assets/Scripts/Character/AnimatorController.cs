@@ -17,6 +17,14 @@ namespace GoToSleep.Object
         {
             player.Attack.Attack();
         }
+        public void UponAttack()
+        {
+            player.Attack.UponAttack();
+        }
+        public void DownAttack()
+        {
+            player.Attack.DownAttack();
+        }
 
         public void StartCooltime()
         {
