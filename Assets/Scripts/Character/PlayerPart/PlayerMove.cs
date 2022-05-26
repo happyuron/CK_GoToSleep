@@ -17,11 +17,13 @@ namespace GoToSleep.Object
 
         public float wallCheckDistance;
 
+
         public bool IsJumping { get; private set; }
 
         public bool IsMoving { get; private set; }
 
         public bool IsClimbing { get; private set; }
+
         private int curJumpCount;
 
         private float moveVelocityX;
@@ -30,7 +32,7 @@ namespace GoToSleep.Object
 
         private float moveSpeed => Player.MoveSpeed;
 
-        private float speed;
+        public float speed;
 
         private float jumpStrength => Player.JumpStrength;
 
@@ -39,7 +41,8 @@ namespace GoToSleep.Object
 
         public void MoveRight(float valueX)
         {
-            speed = moveSpeed;
+            if (valueX == 0)
+                speed = moveSpeed;
             IsMoving = valueX == 0 ? false : true;
             if (valueX > 0)
                 Player.spriteRenderer.flipX = false;
@@ -50,14 +53,36 @@ namespace GoToSleep.Object
                 wallCheck = moveVelocityX;
         }
 
-        public void Run(bool value)
+        public void Run(float value)
         {
-            if (IsMoving && !IsJumping)
+            if (!IsJumping)
             {
+                Debug.Log("Run2");
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                 PlayerAnimation.PlayerAnimFloat("Blend Normal", 3);
-                speed = value ? runSpeed : moveSpeed;
+                speed = runSpeed;
             }
+        }
+
+        public IEnumerator Dash()
+        {
+            float direction = Player.spriteRenderer.flipX ? -3 : 3;
+            RaycastHit2D target = Physics2D.Raycast(Tr.position, new Vector2(direction, 0).normalized, 3, wallLayer);
+            if (target)
+            {
+                Debug.Log(target.point);
+                direction = target.point.x;
+            }
+            else
+            {
+                direction = Tr.position.x + direction;
+            }
+            while (Mathf.Abs(direction - Tr.position.x) > 0.1f)
+            {
+                yield return null;
+                Tr.position = Vector2.MoveTowards(Tr.position, new Vector2(direction, Tr.position.y), 10 * Time.deltaTime);
+            }
+            Rigid.velocity = Vector2.zero;
         }
 
         private bool CheckGround()
@@ -76,7 +101,7 @@ namespace GoToSleep.Object
                 wallCheck = CheckWall() ? 0 : moveVelocityX;
                 IsJumping = true;
                 IsClimbing = false;
-                Rigid.gravityScale = 1;
+                Rigid.gravityScale = Player.DefaultGravity;
                 curJumpCount++;
                 Rigid.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             }
@@ -105,7 +130,7 @@ namespace GoToSleep.Object
             else if ((!CheckWall() || CheckGround()) && IsClimbing)
             {
                 Debug.Log("GroundCheck");
-                Rigid.gravityScale = 1;
+                Rigid.gravityScale = Player.DefaultGravity;
                 IsClimbing = false;
                 IsJumping = false;
                 curJumpCount = 0;
@@ -114,7 +139,7 @@ namespace GoToSleep.Object
         private IEnumerator ClimbingWhileSeconds(float time)
         {
             yield return new WaitForSeconds(time);
-            Rigid.gravityScale = .5f;
+            Rigid.gravityScale = 0.5f;
         }
 
 

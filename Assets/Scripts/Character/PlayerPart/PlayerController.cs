@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 
 namespace GoToSleep.Object
@@ -30,9 +31,9 @@ namespace GoToSleep.Object
 
         private InputAction jump;
 
-        private InputAction run;
-
         private InputAction interact;
+
+        private InputAction dash;
 
 
         protected override void Init()
@@ -42,13 +43,13 @@ namespace GoToSleep.Object
             move = playerControls.Player.Move;
             attack = playerControls.Player.Fire;
             jump = playerControls.Player.Jump;
-            run = playerControls.Player.Run;
             interact = playerControls.Player.Interaction;
+            dash = playerControls.Player.Dash;
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
-            run.performed += Run;
             interact.performed += Interacte;
+            dash.performed += Dash;
         }
 
         private void OnEnable()
@@ -61,20 +62,28 @@ namespace GoToSleep.Object
             move.Enable();
             attack.Enable();
             jump.Enable();
-            run.Enable();
             interact.Enable();
+            dash.Enable();
         }
         public void DIsconnectController()
         {
             move.Disable();
             attack.Disable();
             jump.Disable();
-            run.Disable();
             interact.Disable();
+            dash.Disable();
         }
         private void Move(InputAction.CallbackContext ctx)
         {
-            Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
+            if (ctx.interaction is TapInteraction)
+            {
+                Player.Move.Run(ctx.ReadValue<Vector2>().x);
+            }
+            else if (ctx.interaction is PressInteraction)
+            {
+
+                Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
+            }
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
@@ -85,19 +94,6 @@ namespace GoToSleep.Object
         {
             Player.Move.Jump();
         }
-
-        public void Run(InputAction.CallbackContext ctx)
-        {
-            if (Keyboard.current.shiftKey.wasPressedThisFrame)
-            {
-                Player.Move.Run(true);
-            }
-            else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
-            {
-                Player.Move.Run(false);
-            }
-        }
-
         public void Interacte(InputAction.CallbackContext ctx)
         {
             if (Player.interactiveObj != null)
@@ -106,6 +102,10 @@ namespace GoToSleep.Object
             }
         }
 
+        public void Dash(InputAction.CallbackContext ctx)
+        {
+            StartCoroutine(Player.Move.Dash());
+        }
         private void OnDisable()
         {
             DIsconnectController();
