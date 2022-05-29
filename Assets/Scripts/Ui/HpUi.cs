@@ -14,6 +14,7 @@ namespace GoToSleep.UI
         private void Awake()
         {
             hpImages = GetComponentsInChildren<Image>();
+            UiManager.Instance.hpUi = this;
         }
 
         private void Start()

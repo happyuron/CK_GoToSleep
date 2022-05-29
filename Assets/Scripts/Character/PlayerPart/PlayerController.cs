@@ -81,13 +81,15 @@ namespace GoToSleep.Object
         }
         private void Move(InputAction.CallbackContext ctx)
         {
-            if (ctx.interaction is TapInteraction)
+            if (ctx.interaction is PressInteraction)
             {
-                Player.Move.Run(ctx.ReadValue<Vector2>().x);
-            }
-            else if (ctx.interaction is PressInteraction)
-            {
+                Debug.Log(ctx.ReadValue<Vector2>().x);
                 Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
+            }
+            else if (ctx.interaction is TapInteraction)
+            {
+                Debug.Log("Run");
+                Player.Move.Run(ctx.ReadValue<Vector2>().x);
             }
         }
         public void Attack(InputAction.CallbackContext ctx)

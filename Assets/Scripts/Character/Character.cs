@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoToSleep.Object;
 
-namespace GoToSleep
+namespace GoToSleep.Object
 {
     public class Character : EveryObj
     {
-        [field: SerializeField] public int Hp { get; private set; }
+        [SerializeField] private int hp;
+        public int Hp
+        {
+            get
+            {
+                return hp;
+            }
+            private set
+            {
+                if (value < 0)
+                    GetDamaged(value);
+            }
+        }
         public SpriteRenderer spriteRenderer;
 
         public Rigidbody2D Rigid { get; private set; }
@@ -20,9 +31,17 @@ namespace GoToSleep
             Rigid = GetComponent<Rigidbody2D>();
         }
 
-        public void GetDamaged(int damage)
+        public virtual void GetDamaged(int damage)
         {
             Debug.Log("the object got the" + damage + "damages");
+            hp -= damage;
+            if (hp <= 0)
+                CharacterDead();
+        }
+
+        public virtual void CharacterDead()
+        {
+
         }
     }
 }

@@ -11,6 +11,10 @@ namespace GoToSleep.Manager
 
         public Inventory inventory;
 
+        public HpUi hpUi;
+
+        public GameDescription gameDescription;
+
         private void Start()
         {
             if (inventory == null)
@@ -22,5 +26,12 @@ namespace GoToSleep.Manager
         {
             tabUi.SetActive(value);
         }
+
+        public void UpdateHp()
+        {
+            hpUi.UpdateHp();
+        }
+
+
     }
 }

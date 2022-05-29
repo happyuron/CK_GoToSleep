@@ -20,5 +20,6 @@ namespace GoToSleep.Manager
         {
             return Player.GetComponent<T>() ?? FindObjectOfType<T>() ?? Player.gameObject.AddComponent<T>();
         }
+
     }
 }

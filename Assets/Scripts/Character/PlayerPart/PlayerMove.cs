@@ -38,6 +38,10 @@ namespace GoToSleep.Object
 
         private float runSpeed => Player.RunSpeed;
 
+        private void Start()
+        {
+            speed = moveSpeed;
+        }
 
         public void MoveRight(float valueX)
         {
@@ -57,7 +61,6 @@ namespace GoToSleep.Object
         {
             if (!IsJumping)
             {
-                Debug.Log("Run2");
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                 PlayerAnimation.PlayerAnimFloat("Blend Normal", 3);
                 speed = runSpeed;
@@ -149,7 +152,7 @@ namespace GoToSleep.Object
             return tmp;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!IsClimbing)
                 Rigid.velocity = new Vector2(moveVelocityX * speed, Rigid.velocity.y);

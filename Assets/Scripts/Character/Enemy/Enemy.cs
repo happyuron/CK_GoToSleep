@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GoToSleep
+namespace GoToSleep.Object
 {
     public class Enemy : Character
     {
+        [SerializeField] protected EnemyInfo enemyInfo;
+
 
     }
 }
