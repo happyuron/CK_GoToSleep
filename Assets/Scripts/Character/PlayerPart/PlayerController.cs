@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-
+using GoToSleep.Manager;
 
 namespace GoToSleep.Object
 {
@@ -35,6 +35,8 @@ namespace GoToSleep.Object
 
         private InputAction dash;
 
+        private InputAction showUi;
+
 
         protected override void Init()
         {
@@ -45,11 +47,13 @@ namespace GoToSleep.Object
             jump = playerControls.Player.Jump;
             interact = playerControls.Player.Interaction;
             dash = playerControls.Player.Dash;
+            showUi = playerControls.Player.ShowUi;
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
             interact.performed += Interacte;
             dash.performed += Dash;
+            showUi.performed += ShowUi;
         }
 
         private void OnEnable()
@@ -64,6 +68,7 @@ namespace GoToSleep.Object
             jump.Enable();
             interact.Enable();
             dash.Enable();
+            showUi.Enable();
         }
         public void DIsconnectController()
         {
@@ -72,6 +77,7 @@ namespace GoToSleep.Object
             jump.Disable();
             interact.Disable();
             dash.Disable();
+            showUi.Disable();
         }
         private void Move(InputAction.CallbackContext ctx)
         {
@@ -81,7 +87,6 @@ namespace GoToSleep.Object
             }
             else if (ctx.interaction is PressInteraction)
             {
-
                 Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
             }
         }
@@ -105,6 +110,12 @@ namespace GoToSleep.Object
         public void Dash(InputAction.CallbackContext ctx)
         {
             StartCoroutine(Player.Move.Dash());
+        }
+
+        public void ShowUi(InputAction.CallbackContext ctx)
+        {
+            Debug.Log(ctx.control.IsPressed());
+            UiManager.Instance.SetActiveTabUi(ctx.control.IsPressed());
         }
         private void OnDisable()
         {

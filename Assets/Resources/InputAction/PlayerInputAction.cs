@@ -80,6 +80,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowUi"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab5b4922-0207-45c1-85ad-ae3da61c1e8e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +300,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc66b8c9-b32c-4d52-a1d9-2bc388d5511a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ShowUi"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -366,6 +386,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_ShowUi = m_Player.FindAction("ShowUi", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -431,6 +452,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interaction;
     private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_ShowUi;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -441,6 +463,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @ShowUi => m_Wrapper.m_Player_ShowUi;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -468,6 +491,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @ShowUi.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
+                @ShowUi.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
+                @ShowUi.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -490,6 +516,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @ShowUi.started += instance.OnShowUi;
+                @ShowUi.performed += instance.OnShowUi;
+                @ShowUi.canceled += instance.OnShowUi;
             }
         }
     }
@@ -547,5 +576,6 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnShowUi(InputAction.CallbackContext context);
     }
 }

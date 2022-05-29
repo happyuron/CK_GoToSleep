@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
-    public class Item : EveryObj
+    public class Item : TriggerObj<Player>
     {
         public ItemInfo info;
 
@@ -16,6 +16,20 @@ namespace GoToSleep.Object
             spriteRenderer = GetComponent<SpriteRenderer>() ?? GetComponentInChildren<SpriteRenderer>();
         }
 
+        protected override void CheckAreaStart(Collider2D other)
+        {
+            if (other != null)
+            {
+                Debug.Log("EE");
+                other.GetComponent<Player>().GetItem(this);
+                Destroy(gameObject);
+            }
+        }
+
+        public Sprite GetItemSprite()
+        {
+            return spriteRenderer.sprite;
+        }
 
     }
 }

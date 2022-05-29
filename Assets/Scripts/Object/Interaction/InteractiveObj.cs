@@ -7,12 +7,6 @@ namespace GoToSleep.Object
     public class InteractiveObj : TriggerObj<Player>
     {
 
-        protected override void Init()
-        {
-            base.Init();
-            target = FindObjectOfType<Player>();
-        }
-
         protected override void CheckAreaStart(Collider2D other)
         {
             if (other != null)

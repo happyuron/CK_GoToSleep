@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoToSleep.UI;
 
-namespace GoToSleep
+namespace GoToSleep.Manager
 {
-    public class UiManager : MonoBehaviour
+    public class UiManager : Singleton<UiManager>
     {
-        // Start is called before the first frame update
-        void Start()
+        public GameObject tabUi;
+
+        public Inventory inventory;
+
+        private void Start()
         {
-        
+            if (inventory == null)
+                inventory = FindObjectOfType<Inventory>();
         }
 
-        // Update is called once per frame
-        void Update()
+
+        public void SetActiveTabUi(bool value)
         {
-        
+            tabUi.SetActive(value);
         }
     }
 }

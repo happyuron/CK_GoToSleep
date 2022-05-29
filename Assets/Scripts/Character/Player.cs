@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GoToSleep.Manager;
 
 namespace GoToSleep.Object
 {
@@ -61,6 +61,11 @@ namespace GoToSleep.Object
         public bool IsNormalState()
         {
             return CurState == PlayerState.Normal;
+        }
+
+        public void GetItem(Item item)
+        {
+            UiManager.Instance.inventory.SetSlot(item);
         }
 
     }

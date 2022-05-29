@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
-    public class TriggerObj<T> : EveryObj
+    public class TriggerObj<T> : EveryObj where T : MonoBehaviour
     {
         [SerializeField] private Transform childrenTr;
         [SerializeField] private Vector2 size;
@@ -14,10 +14,10 @@ namespace GoToSleep.Object
 
         private bool isOnce;
 
-
-        protected override void Init()
+        protected override void Awake()
         {
-            base.Init();
+            base.Awake();
+            target = FindObjectOfType<T>();
         }
 
         private void CheckArea()
