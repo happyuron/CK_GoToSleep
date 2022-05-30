@@ -15,6 +15,8 @@ namespace GoToSleep.Manager
 
         public GameDescription gameDescription;
 
+        public SettingUi settingUi;
+
         private void Start()
         {
             if (inventory == null)
@@ -40,6 +42,11 @@ namespace GoToSleep.Manager
         public void AddText(int index, string text)
         {
             gameDescription.AddText(index, text);
+        }
+
+        public void ShowSettingUi()
+        {
+
         }
 
     }

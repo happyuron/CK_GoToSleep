@@ -1,21 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace GoToSleep
+
+namespace GoToSleep.Manager
 {
-    public class InputManager : MonoBehaviour
+
+    public class InputManager : Singleton<InputManager>
     {
-        // Start is called before the first frame update
-        void Start()
+        private PlayerInputAction inputActions;
+        private InputAction back;
+
+        public delegate IEnumerator Action();
+
+        public Action action;
+
+        protected override void Awake()
         {
-        
+            inputActions = new PlayerInputAction();
+            back = inputActions.System.Back;
+
+            back.performed += Back;
+            action += Setup;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnEnable()
         {
-        
+            back.Enable();
+        }
+
+        public void Back(InputAction.CallbackContext ctx)
+        {
+            StartCoroutine(action());
+        }
+
+
+        private IEnumerator Setup()
+        {
+            UiManager.Instance.ShowSettingUi();
+            yield return null;
         }
     }
 }

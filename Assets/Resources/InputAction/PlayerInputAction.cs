@@ -313,6 +313,34 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""System"",
+            ""id"": ""aacf44e2-119f-4467-a862-a47dc7d8bf1b"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b2015b1-72c7-408d-8c96-bf431099f02e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bf00bd3d-65e2-4468-bfea-ec4555e80994"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -387,6 +415,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_ShowUi = m_Player.FindAction("ShowUi", throwIfNotFound: true);
+        // System
+        m_System = asset.FindActionMap("System", throwIfNotFound: true);
+        m_System_Back = m_System.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -523,6 +554,39 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // System
+    private readonly InputActionMap m_System;
+    private ISystemActions m_SystemActionsCallbackInterface;
+    private readonly InputAction m_System_Back;
+    public struct SystemActions
+    {
+        private @PlayerInputAction m_Wrapper;
+        public SystemActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Back => m_Wrapper.m_System_Back;
+        public InputActionMap Get() { return m_Wrapper.m_System; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SystemActions set) { return set.Get(); }
+        public void SetCallbacks(ISystemActions instance)
+        {
+            if (m_Wrapper.m_SystemActionsCallbackInterface != null)
+            {
+                @Back.started -= m_Wrapper.m_SystemActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_SystemActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_SystemActionsCallbackInterface.OnBack;
+            }
+            m_Wrapper.m_SystemActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+            }
+        }
+    }
+    public SystemActions @System => new SystemActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -577,5 +641,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnInteraction(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnShowUi(InputAction.CallbackContext context);
+    }
+    public interface ISystemActions
+    {
+        void OnBack(InputAction.CallbackContext context);
     }
 }

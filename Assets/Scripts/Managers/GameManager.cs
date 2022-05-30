@@ -17,7 +17,6 @@ namespace GoToSleep.Manager
             }
             else
             {
-                Debug.Log("NotNull");
                 goal = goal.GetEnemyIndex() <= boss.GetEnemyIndex() ? goal : boss;
             }
             UiManager.Instance.AddText(boss.GetEnemyIndex(), boss.GetEnemyDescription());
