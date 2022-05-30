@@ -16,6 +16,8 @@ namespace GoToSleep.Manager
 
         public SettingUi settingUi;
 
+        public LoadingScene loading;
+
         private void Start()
         {
             if (inventory == null)
@@ -46,6 +48,11 @@ namespace GoToSleep.Manager
         public void SettingUiActive(bool value)
         {
             settingUi.SetActive(value);
+        }
+
+        public void LoadScene(int index)
+        {
+            loading.LoadScene(index);
         }
     }
 }
