@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GoToSleep.Manager;
 using TMPro;
 
 namespace GoToSleep.UI
@@ -10,6 +11,11 @@ namespace GoToSleep.UI
         public TextMeshProUGUI text;
 
         private Dictionary<int, string> goalText = new Dictionary<int, string>();
+
+        private void Start()
+        {
+            UiManager.Instance.gameDescription = this;
+        }
 
 
         public void SetText(int bossIndex, string value)

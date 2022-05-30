@@ -7,7 +7,6 @@ namespace GoToSleep.Manager
 {
     public class UiManager : Singleton<UiManager>
     {
-        public GameObject tabUi;
 
         public Inventory inventory;
 
@@ -26,7 +25,7 @@ namespace GoToSleep.Manager
 
         public void SetActiveTabUi(bool value)
         {
-            tabUi.SetActive(value);
+            gameDescription.gameObject.SetActive(value);
         }
 
         public void UpdateHp()
@@ -44,10 +43,9 @@ namespace GoToSleep.Manager
             gameDescription.AddText(index, text);
         }
 
-        public void ShowSettingUi()
+        public void SettingUiActive(bool value)
         {
-
+            settingUi.SetActive(value);
         }
-
     }
 }

@@ -18,6 +18,7 @@ namespace GoToSleep.Manager
 
         protected override void Awake()
         {
+            base.Awake();
             inputActions = new PlayerInputAction();
             back = inputActions.System.Back;
 
@@ -36,10 +37,21 @@ namespace GoToSleep.Manager
         }
 
 
-        private IEnumerator Setup()
+        public IEnumerator Setup()
         {
-            UiManager.Instance.ShowSettingUi();
+            UiManager.Instance.SettingUiActive(true);
+            action += HideSetting;
             yield return null;
+        }
+        public IEnumerator HideSetting()
+        {
+            UiManager.Instance.SettingUiActive(false);
+            action -= HideSetting;
+            yield return null;
+        }
+        public void AddCloseSystem()
+        {
+            action -= HideSetting;
         }
     }
 }

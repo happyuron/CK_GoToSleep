@@ -7,12 +7,11 @@ namespace GoToSleep.Manager
     public class SoundManager : Singleton<SoundManager>
     {
         private AudioSource source;
-        private AudioClip[] clips;
 
-        private List<AudioClip> clipList;
+        private List<AudioClip> clipList = new List<AudioClip>();
         private float mainSoundVolume;
 
-        private float effectSoundVolume;
+        private float soundEffectVolume;
 
 
         public float MainSoundVolume
@@ -28,25 +27,26 @@ namespace GoToSleep.Manager
             }
         }
 
-        public float EffectSoundVolume
+        public float SoundEffectVolume
         {
             get
             {
-                return effectSoundVolume;
+                return soundEffectVolume;
             }
             set
             {
-                effectSoundVolume = value;
+                soundEffectVolume = value;
             }
         }
         protected override void Init()
         {
             base.Init();
             source = GetComponent<AudioSource>();
-            if (source == null)
-                source = gameObject.AddComponent<AudioSource>();
-            clips = Resources.LoadAll("") as AudioClip[];
-
+        }
+        protected override void Awake()
+        {
+            base.Awake();
+            AudioClip[] clips = Resources.LoadAll<AudioClip>("Sound");
             for (int i = 0; i < clips.Length; i++)
             {
                 clipList.Add(clips[i]);
