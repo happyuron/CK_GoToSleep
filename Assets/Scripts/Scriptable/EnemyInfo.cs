@@ -11,5 +11,7 @@ namespace GoToSleep.Object
 
         [field: SerializeField] public int AttackDamage { get; private set; }
 
+        [field: SerializeField] public string Description { get; private set; }
+
     }
 }

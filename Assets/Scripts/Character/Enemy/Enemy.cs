@@ -8,6 +8,14 @@ namespace GoToSleep.Object
     {
         [SerializeField] protected EnemyInfo enemyInfo;
 
+        public int GetEnemyIndex()
+        {
+            return enemyInfo.EnemyIndex;
+        }
+        public string GetEnemyDescription()
+        {
+            return enemyInfo.Description;
+        }
 
     }
 }

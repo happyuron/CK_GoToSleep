@@ -32,6 +32,15 @@ namespace GoToSleep.Manager
             hpUi.UpdateHp();
         }
 
+        public void SetDescription(int index, string text)
+        {
+            gameDescription.SetText(index, text);
+        }
+
+        public void AddText(int index, string text)
+        {
+            gameDescription.AddText(index, text);
+        }
 
     }
 }

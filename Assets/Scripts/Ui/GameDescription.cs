@@ -9,12 +9,15 @@ namespace GoToSleep.UI
     {
         public TextMeshProUGUI text;
 
-        public string[] description;
-
-        private Dictionary<int, string> goalText;
+        private Dictionary<int, string> goalText = new Dictionary<int, string>();
 
 
         public void SetText(int bossIndex, string value)
+        {
+            text.text = value;
+        }
+
+        public void AddText(int bossIndex, string value)
         {
             goalText.Add(bossIndex, value);
         }

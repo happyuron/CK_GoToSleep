@@ -7,14 +7,24 @@ namespace GoToSleep.Manager
 {
     public class GameManager : Singleton<GameManager>
     {
-        Enemy goal;
+        private BossEnemy goal;
 
-
-        protected override void Awake()
+        public void SetGoalEnemy(BossEnemy boss)
         {
-            base.Awake();
-
+            if (goal == null)
+            {
+                goal = boss;
+            }
+            else
+            {
+                Debug.Log("NotNull");
+                goal = goal.GetEnemyIndex() <= boss.GetEnemyIndex() ? goal : boss;
+            }
+            UiManager.Instance.AddText(boss.GetEnemyIndex(), boss.GetEnemyDescription());
+            UiManager.Instance.SetDescription(goal.GetEnemyIndex(), goal.GetEnemyDescription());
         }
+
+
 
     }
 }
