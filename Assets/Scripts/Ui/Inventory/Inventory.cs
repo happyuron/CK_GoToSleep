@@ -10,11 +10,14 @@ namespace GoToSleep.UI
     {
         private InventorySlot[] slotList;
 
+        private void Awake()
+        {
+            UiManager.Instance.inventory = this;
+        }
 
         private void Start()
         {
             slotList = GetComponentsInChildren<InventorySlot>();
-            Debug.Log(slotList.Length);
             UiManager.Instance.SetActiveTabUi(false);
         }
 

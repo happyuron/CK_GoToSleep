@@ -18,7 +18,7 @@ namespace GoToSleep.Object
         public float wallCheckDistance;
 
 
-        public bool IsJumping { get; private set; }
+        [field: SerializeField] public bool IsJumping { get; private set; }
 
         public bool IsMoving { get; private set; }
 
@@ -121,7 +121,6 @@ namespace GoToSleep.Object
                     Rigid.gravityScale = 0;
                     StartCoroutine(ClimbingWhileSeconds(2));
                     Rigid.velocity = Vector2.zero;
-                    IsJumping = false;
                     curJumpCount--;
                 }
                 else if (CheckGround() && Rigid.velocity.y <= 0)

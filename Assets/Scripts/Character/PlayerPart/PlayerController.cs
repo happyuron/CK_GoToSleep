@@ -88,7 +88,6 @@ namespace GoToSleep.Object
             }
             else if (ctx.interaction is TapInteraction)
             {
-                Debug.Log("Run");
                 Player.Move.Run(ctx.ReadValue<Vector2>().x);
             }
         }

@@ -17,14 +17,6 @@ namespace GoToSleep.Manager
         public SettingUi settingUi;
 
         public LoadingScene loading;
-
-        private void Start()
-        {
-            if (inventory == null)
-                inventory = FindObjectOfType<Inventory>();
-        }
-
-
         public void SetActiveTabUi(bool value)
         {
             gameDescription.gameObject.SetActive(value);

@@ -12,7 +12,7 @@ namespace GoToSleep.UI
 
         private Dictionary<int, string> goalText = new Dictionary<int, string>();
 
-        private void Start()
+        private void Awake()
         {
             UiManager.Instance.gameDescription = this;
         }
