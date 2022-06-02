@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GoToSleep.UI;
+using GoToSleep.Object;
 
 namespace GoToSleep.Manager
 {
@@ -20,6 +21,11 @@ namespace GoToSleep.Manager
         public void SetActiveTabUi(bool value)
         {
             gameDescription.gameObject.SetActive(value);
+        }
+
+        public Item FindItemInInventory(Item item)
+        {
+            return inventory.FindItemInInventory(item);
         }
 
         public void UpdateHp()

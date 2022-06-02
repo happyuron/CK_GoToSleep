@@ -27,6 +27,7 @@ namespace GoToSleep.UI
 
         public void SetSlotImage(Item value)
         {
+            item = value;
             image.sprite = value.GetItemSprite();
             isFull = true;
         }
@@ -36,6 +37,10 @@ namespace GoToSleep.UI
             item = null;
             image.sprite = nullSlotSprite;
             isFull = false;
+        }
+        public Item GetItem()
+        {
+            return item;
         }
     }
 }

@@ -6,9 +6,11 @@ namespace GoToSleep.Object
 {
     public class Item : TriggerObj<Player>
     {
+
         public ItemInfo info;
 
         private SpriteRenderer spriteRenderer;
+
 
         protected override void Init()
         {
@@ -20,15 +22,19 @@ namespace GoToSleep.Object
         {
             if (other != null)
             {
-                Debug.Log("EE");
                 other.GetComponent<Player>().GetItem(this);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
 
         public Sprite GetItemSprite()
         {
             return spriteRenderer.sprite;
+        }
+
+        public int GetIndex()
+        {
+            return info.ItemIndex;
         }
 
     }

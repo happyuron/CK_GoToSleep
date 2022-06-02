@@ -36,5 +36,14 @@ namespace GoToSleep.UI
             }
             return slot != null ? true : false;
         }
+        public Item FindItemInInventory(Item item)
+        {
+            for (int i = 0; i < slotList.Length; i++)
+            {
+                if (slotList[i].isFull && item == slotList[i].GetItem())
+                    return slotList[i].GetItem();
+            }
+            return null;
+        }
     }
 }
