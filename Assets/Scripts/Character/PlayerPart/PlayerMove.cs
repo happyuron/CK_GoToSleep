@@ -59,7 +59,7 @@ namespace GoToSleep.Object
 
         public void Run(float value)
         {
-            if (!IsJumping)
+            if (!IsJumping && !IsClimbing)
             {
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                 PlayerAnimation.PlayerAnimFloat("Blend Normal", 3);
@@ -121,6 +121,7 @@ namespace GoToSleep.Object
                     Rigid.gravityScale = 0;
                     StartCoroutine(ClimbingWhileSeconds(2));
                     Rigid.velocity = Vector2.zero;
+                    IsJumping = false;
                     curJumpCount--;
                 }
                 else if (CheckGround() && Rigid.velocity.y <= 0)
