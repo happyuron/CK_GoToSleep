@@ -7,6 +7,10 @@ namespace GoToSleep.Object
     public class Character : EveryObj
     {
         [SerializeField] private int hp;
+
+        [SerializeField] private float invincibleTime;
+
+        public bool IsInvincible { get; private set; }
         public int Hp
         {
             get
@@ -33,10 +37,42 @@ namespace GoToSleep.Object
 
         public virtual void GetDamaged(int damage)
         {
-            Debug.Log("the object got the" + damage + "damages");
+            if (IsInvincible)
+                return;
             hp -= damage;
+            StartCoroutine(DamagedCoroutine());
             if (hp <= 0)
                 CharacterDead();
+        }
+
+        private IEnumerator DamagedCoroutine()
+        {
+            IsInvincible = true;
+
+            // 캐릭터가 공격당할시 깜빡거리는 효과
+            float time = 0;
+            float start = 1;
+            float end = 0;
+            Color fadeColor = spriteRenderer.color;
+            int count = 0;
+            while (count < 2)
+            {
+                yield return null;
+                time += Time.deltaTime / (invincibleTime / 2);
+                fadeColor.g = Mathf.Lerp(start, end, time);
+                fadeColor.b = Mathf.Lerp(start, end, time);
+                spriteRenderer.color = fadeColor;
+                if (spriteRenderer.color.g == end && spriteRenderer.color.b == end)
+                {
+                    start += end;
+                    end = start - end;
+                    start -= end;
+                    time = 0;
+                    count++;
+                }
+            }
+
+            IsInvincible = false;
         }
 
         public virtual void CharacterDead()

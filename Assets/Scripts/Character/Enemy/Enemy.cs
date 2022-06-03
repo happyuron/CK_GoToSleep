@@ -8,6 +8,16 @@ namespace GoToSleep.Object
     {
         [SerializeField] protected EnemyInfo enemyInfo;
 
+        private EnemyMove move;
+
+
+        protected override void Awake()
+        {
+            base.Awake();
+            move = GetComponent<EnemyMove>();
+
+        }
+
         public int GetEnemyIndex()
         {
             return enemyInfo.EnemyIndex;
@@ -16,6 +26,11 @@ namespace GoToSleep.Object
         {
             return enemyInfo.Description;
         }
+
+
+
+
+
 
     }
 }
