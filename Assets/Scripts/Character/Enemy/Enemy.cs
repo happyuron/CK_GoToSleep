@@ -4,18 +4,30 @@ using UnityEngine;
 
 namespace GoToSleep.Object
 {
+    public enum EnemyState
+    {
+        Idle, Move, Attack, Dead
+    }
     public class Enemy : Character
     {
-        [SerializeField] protected EnemyInfo enemyInfo;
 
+
+        public bool isMoving => move.IsMoving;
+
+        public bool isAttacking => attack.IsAttacking;
+        public EnemyAttack attack;
         private EnemyMove move;
 
+        public Animator Anim { get; private set; }
 
-        protected override void Awake()
+        [SerializeField] protected EnemyInfo enemyInfo;
+
+        protected override void Init()
         {
-            base.Awake();
+            base.Init();
             move = GetComponent<EnemyMove>();
-
+            Anim = GetComponentInChildren<Animator>();
+            attack = GetComponent<EnemyAttack>();
         }
 
         public int GetEnemyIndex()

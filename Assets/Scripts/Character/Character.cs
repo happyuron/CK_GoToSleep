@@ -39,6 +39,7 @@ namespace GoToSleep.Object
         {
             if (IsInvincible)
                 return;
+            IsInvincible = true;
             hp -= damage;
             StartCoroutine(DamagedCoroutine());
             if (hp <= 0)
@@ -47,7 +48,6 @@ namespace GoToSleep.Object
 
         private IEnumerator DamagedCoroutine()
         {
-            IsInvincible = true;
 
             // 캐릭터가 공격당할시 깜빡거리는 효과
             float time = 0;

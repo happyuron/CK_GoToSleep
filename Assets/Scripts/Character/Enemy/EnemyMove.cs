@@ -17,8 +17,6 @@ namespace GoToSleep.Object
         public Rigidbody2D Rigid { get; private set; }
 
         public BoxTrigger groundTrigger;
-
-
         public Enemy enemy;
 
         public Player player;
@@ -28,12 +26,29 @@ namespace GoToSleep.Object
 
         public bool detectOn;
         private int direction;
+        public bool IsMoving { get; private set; }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            Rigid = GetComponent<Rigidbody2D>();
+            enemy = GetComponent<Enemy>();
+        }
+
+        private void Start()
+        {
+            player = CharacterManager.Instance.Player;
+            StartCoroutine(SetDirection());
+
+        }
         private IEnumerator SetDirection()
         {
             yield return new WaitForSeconds(3);
             direction = Random.Range(-1, 2);
-            enemy.spriteRenderer.flipX = direction > 0 ? true : direction < 0 ? false : enemy.spriteRenderer.flipX;
+            if (direction == 0)
+                enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
+            else
+                enemy.Anim.SetInteger("State", (int)EnemyState.Move);
             StartCoroutine(SetDirection());
         }
 
@@ -55,32 +70,35 @@ namespace GoToSleep.Object
             detectOn = false;
             StartCoroutine(SetDirection());
         }
-
-        protected override void Awake()
+        private void Move()
         {
-            base.Awake();
-            Rigid = GetComponent<Rigidbody2D>();
-            enemy = GetComponent<Enemy>();
-        }
+            if (direction != 0)
+                IsMoving = true;
+            else
+                IsMoving = false;
+            if (CheckGround())
+            {
+                direction *= -1;
+            }
+            if (!detectOn)
+            {
+                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+            }
+            else
+            {
 
-        private void Start()
-        {
-            player = CharacterManager.Instance.Player;
-            StartCoroutine(SetDirection());
-
+                direction = Tr.position.x > player.Tr.position.x ? -1 : 1;
+                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+            }
+            enemy.spriteRenderer.flipX = direction > 0 ? true : direction < 0 ? false : enemy.spriteRenderer.flipX;
         }
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (CheckGround())
-                direction *= -1;
-            if (!detectOn)
-                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+            if (!enemy.isAttacking)
+                Move();
             else
-            {
-                direction = Tr.position.x > player.Tr.position.x ? -1 : 1;
-                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
-            }
+                Rigid.velocity = Vector2.zero;
         }
 
         protected override void OnDrawGizmos()
