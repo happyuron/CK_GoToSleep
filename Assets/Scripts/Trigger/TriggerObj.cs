@@ -6,9 +6,9 @@ namespace GoToSleep.Object
 {
     public class TriggerObj<T> : EveryObj where T : MonoBehaviour
     {
-        [SerializeField] private Transform childrenTr;
-        [SerializeField] private Vector2 size;
-        [SerializeField] private LayerMask hitLayer;
+        [SerializeField] protected Transform childrenTr;
+        [SerializeField] protected Vector2 size;
+        [SerializeField] protected LayerMask hitLayer;
 
         public T target;
 
