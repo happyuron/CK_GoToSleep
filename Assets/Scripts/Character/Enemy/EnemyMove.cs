@@ -20,6 +20,7 @@ namespace GoToSleep.Object
         public Enemy enemy;
 
         public Player player;
+        public float minDistance;
 
 
         public float speed;
@@ -72,23 +73,37 @@ namespace GoToSleep.Object
         }
         private void Move()
         {
-            if (direction != 0)
-                IsMoving = true;
-            else
-                IsMoving = false;
-            if (CheckGround())
+            if (Vector3.Distance(Tr.position, target.Tr.position) >= minDistance)
             {
-                direction *= -1;
-            }
-            if (!detectOn)
-            {
-                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
-            }
-            else
-            {
+                if (direction != 0)
+                {
+                    IsMoving = true;
 
-                direction = Tr.position.x > player.Tr.position.x ? -1 : 1;
-                Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+                    enemy.Anim.SetInteger("State", (int)EnemyState.Move);
+                }
+                else
+                {
+                    IsMoving = false;
+                    enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
+                }
+                if (CheckGround())
+                {
+                    direction *= -1;
+                }
+                if (!detectOn)
+                {
+                    Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+                }
+                else if (detectOn && CheckGround())
+                {
+                    direction = Tr.position.x > player.Tr.position.x ? -1 : 1;
+                    Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
+                }
+            }
+            else
+            {
+                Rigid.velocity = new Vector2(0, Rigid.velocity.y);
+                enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
             }
             enemy.spriteRenderer.flipX = direction > 0 ? true : direction < 0 ? false : enemy.spriteRenderer.flipX;
         }
@@ -98,7 +113,7 @@ namespace GoToSleep.Object
             if (!enemy.isAttacking)
                 Move();
             else
-                Rigid.velocity = Vector2.zero;
+                Rigid.velocity = new Vector2(0, Rigid.velocity.y);
         }
 
         protected override void OnDrawGizmos()

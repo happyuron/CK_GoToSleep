@@ -15,6 +15,7 @@ namespace GoToSleep.Object
 
         public PlayerAttack Attack { get; private set; }
 
+
         public Animator Anim { get; private set; }
 
         [field: SerializeField] public float MoveSpeed { get; private set; }
@@ -30,6 +31,8 @@ namespace GoToSleep.Object
 
         public bool IsMoving => Move.IsMoving;
 
+        private PlayerController controller;
+
 
         protected override void Init()
         {
@@ -38,6 +41,7 @@ namespace GoToSleep.Object
             Move = GetComponent<PlayerMove>();
             Anim = GetComponentInChildren<Animator>();
             Attack = GetComponent<PlayerAttack>();
+            controller = GetComponent<PlayerController>();
             if (Anim != null)
             {
                 PlayerAnimation.defaultAnim = Anim;
@@ -71,6 +75,17 @@ namespace GoToSleep.Object
         {
             base.GetDamaged(damage);
             UiManager.Instance.UpdateHp();
+        }
+
+        public override void CharacterDead()
+        {
+            CurState = PlayerState.Dead;
+            controller.DIsconnectController();
+        }
+
+        public override void Revive()
+        {
+            controller.ConnectController();
         }
     }
 

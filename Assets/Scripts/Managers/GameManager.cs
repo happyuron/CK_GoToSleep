@@ -9,6 +9,8 @@ namespace GoToSleep.Manager
     {
         private BossEnemy goal;
 
+        public Transform Save { get; private set; }
+
         public void SetGoalEnemy(BossEnemy boss)
         {
             if (goal == null)
@@ -23,7 +25,10 @@ namespace GoToSleep.Manager
             UiManager.Instance.SetDescription(goal.GetEnemyIndex(), goal.GetEnemyDescription());
         }
 
+        public void SetSavePoint(Transform tr)
+        {
 
+        }
 
     }
 }

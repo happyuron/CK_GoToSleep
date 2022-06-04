@@ -41,9 +41,10 @@ namespace GoToSleep.Object
                 return;
             IsInvincible = true;
             hp -= damage;
-            StartCoroutine(DamagedCoroutine());
             if (hp <= 0)
                 CharacterDead();
+            else
+                StartCoroutine(DamagedCoroutine());
         }
 
         private IEnumerator DamagedCoroutine()
@@ -76,6 +77,11 @@ namespace GoToSleep.Object
         }
 
         public virtual void CharacterDead()
+        {
+
+        }
+
+        public virtual void Revive()
         {
 
         }

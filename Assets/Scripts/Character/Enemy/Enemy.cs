@@ -11,7 +11,6 @@ namespace GoToSleep.Object
     public class Enemy : Character
     {
 
-
         public bool isMoving => move.IsMoving;
 
         public bool isAttacking => attack.IsAttacking;

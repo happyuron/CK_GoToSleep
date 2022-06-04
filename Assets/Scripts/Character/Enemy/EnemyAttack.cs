@@ -24,8 +24,13 @@ namespace GoToSleep.Object
         {
             int direction = enemy.spriteRenderer.flipX ? -1 : 1;
             Collider2D other = Physics2D.OverlapBox((Tr.position + new Vector3(direction * attackRange.offset.x, attackRange.offset.y)), attackRange.size, 0, attackRange.checkLayer);
-
-            Player tmp = other.GetComponent<Player>();
+            Player tmp = null;
+            if (other.GetComponent<Player>())
+            {
+                tmp = other.GetComponent<Player>();
+                if (tmp.IsDead())
+                    tmp = null;
+            }
 
             return tmp;
         }
