@@ -83,7 +83,6 @@ namespace GoToSleep.Object
         {
             if (ctx.interaction is PressInteraction)
             {
-                Debug.Log(ctx.ReadValue<Vector2>().x);
                 Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
             }
             else if (ctx.interaction is TapInteraction)

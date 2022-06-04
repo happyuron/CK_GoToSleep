@@ -60,9 +60,8 @@ namespace GoToSleep.Object
 
         protected virtual void OnDrawGizmos()
         {
-            int direction = enemy.spriteRenderer.flipX ? -1 : 1;
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube((transform.position + new Vector3(direction * attackRange.offset.x, attackRange.offset.y)), attackRange.size);
+            Gizmos.DrawWireCube((transform.position + new Vector3(attackRange.offset.x, attackRange.offset.y)), attackRange.size);
         }
 
 

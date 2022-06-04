@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 36066344817592056}
   - component: {fileID: 3003400083695540997}
   - component: {fileID: 2458275251097061933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dark Jungle_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -80,6 +80,7 @@ namespace GoToSleep.Object
         public override void CharacterDead()
         {
             CurState = PlayerState.Dead;
+            Move.moveVelocityX = 0;
             controller.DIsconnectController();
         }
 

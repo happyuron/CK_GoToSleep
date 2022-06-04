@@ -24,9 +24,9 @@ namespace GoToSleep.Object
 
         public bool IsClimbing { get; private set; }
 
-        private int curJumpCount;
+        public float moveVelocityX;
 
-        private float moveVelocityX;
+        private int curJumpCount;
 
         private float wallCheck;
 
@@ -46,12 +46,21 @@ namespace GoToSleep.Object
         public void MoveRight(float valueX)
         {
             if (valueX == 0)
+            {
                 speed = moveSpeed;
-            IsMoving = valueX == 0 ? false : true;
-            if (valueX > 0)
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
+            }
+            else if (valueX > 0)
+            {
                 Player.spriteRenderer.flipX = false;
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 1);
+            }
             else if (valueX < 0)
+            {
                 Player.spriteRenderer.flipX = true;
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 1);
+            }
+            IsMoving = valueX == 0 ? false : true;
             moveVelocityX = valueX;
             if (!IsClimbing)
                 wallCheck = moveVelocityX;
@@ -91,7 +100,6 @@ namespace GoToSleep.Object
         private bool CheckGround()
         {
             Collider2D result = Physics2D.OverlapBox(Tr.position + offset, size, 0, groundLayer);
-
             return result;
         }
 
@@ -99,6 +107,9 @@ namespace GoToSleep.Object
         {
             if (curJumpCount < jumpCount)
             {
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
+                PlayerAnimation.PlayerAnimFloat("Blend Jump", 0);
+
                 StopAllCoroutines();
                 wallCheck = moveVelocityX;
                 wallCheck = CheckWall() ? 0 : moveVelocityX;
@@ -126,6 +137,7 @@ namespace GoToSleep.Object
                 }
                 else if (CheckGround() && Rigid.velocity.y <= 0)
                 {
+                    PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                     IsJumping = false;
                     curJumpCount = 0;
                 }
