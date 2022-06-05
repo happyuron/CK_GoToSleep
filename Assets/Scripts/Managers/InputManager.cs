@@ -23,7 +23,7 @@ namespace GoToSleep.Manager
             back = inputActions.System.Back;
 
             back.performed += Back;
-            action += Setup;
+            action += SetupPopup;
         }
 
         private void OnEnable()
@@ -37,7 +37,7 @@ namespace GoToSleep.Manager
         }
 
 
-        public IEnumerator Setup()
+        public IEnumerator SetupSetting()
         {
             UiManager.Instance.SettingUiActive(true);
             action += HideSetting;
@@ -47,6 +47,18 @@ namespace GoToSleep.Manager
         {
             UiManager.Instance.SettingUiActive(false);
             action -= HideSetting;
+            yield return null;
+        }
+        public IEnumerator SetupPopup()
+        {
+            UiManager.Instance.PopUpUiActive(true);
+            action += HidePopup;
+            yield return null;
+        }
+        public IEnumerator HidePopup()
+        {
+            UiManager.Instance.PopUpUiActive(false);
+            action -= HidePopup;
             yield return null;
         }
         public void AddCloseSystem()

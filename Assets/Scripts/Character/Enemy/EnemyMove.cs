@@ -44,12 +44,12 @@ namespace GoToSleep.Object
         }
         private IEnumerator SetDirection()
         {
+            yield return new WaitForSeconds(3);
             direction = Random.Range(-1, 2);
             if (direction == 0)
                 enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
             else
                 enemy.Anim.SetInteger("State", (int)EnemyState.Move);
-            yield return new WaitForSeconds(3);
             StartCoroutine(SetDirection());
         }
 

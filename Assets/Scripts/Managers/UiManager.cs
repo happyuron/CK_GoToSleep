@@ -15,6 +15,8 @@ namespace GoToSleep.Manager
 
         public GameDescription gameDescription;
 
+        public PopUpUi popUpUi;
+
         public SettingUi settingUi;
 
         public LoadingScene loading;
@@ -46,6 +48,17 @@ namespace GoToSleep.Manager
         public void SettingUiActive(bool value)
         {
             settingUi.SetActive(value);
+            if (value)
+            {
+                InputManager.Instance.action -= InputManager.Instance.HidePopup;
+                InputManager.Instance.action += InputManager.Instance.HideSetting;
+            }
+
+        }
+
+        public void PopUpUiActive(bool value)
+        {
+            popUpUi.SetActive(value);
         }
 
         public void LoadScene(int index)
