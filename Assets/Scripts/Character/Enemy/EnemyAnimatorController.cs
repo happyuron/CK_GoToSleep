@@ -18,7 +18,7 @@ namespace GoToSleep.Object
             Player player = enemy.attack.CheckAttackRange();
             if (player != null)
             {
-                player.GetDamaged(1);
+                player.GetDamaged(enemy.attack.damage);
             }
         }
 

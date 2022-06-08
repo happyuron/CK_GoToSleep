@@ -23,7 +23,7 @@ namespace GoToSleep.Manager
 
         public GameOverUi gameOverUi;
 
-        public GameObject gameClearUi;
+        public GameClearUi gameClearUi;
         public void SetActiveTabUi(bool value)
         {
             gameDescription.gameObject.SetActive(value);

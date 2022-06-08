@@ -223,6 +223,7 @@ MonoBehaviour:
   hp: 3
   invincibleTime: 1
   spriteRenderer: {fileID: 0}
+  state: 0
   attack: {fileID: 0}
   enemyInfo: {fileID: 0}
 --- !u!114 &2617877076453731702
@@ -291,3 +292,4 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
   canAttack: 0
+  damage: 1

@@ -196,7 +196,7 @@ MonoBehaviour:
     <StartPosition>k__BackingField: {x: 0, y: 0}
     <StartScale>k__BackingField: {x: 0, y: 0}
     <WaitTime>k__BackingField: 0
-    <Duration>k__BackingField: 0.25
+    <Duration>k__BackingField: 0.5
     <EaseType>k__BackingField: 0
 --- !u!1 &264258281
 GameObject:

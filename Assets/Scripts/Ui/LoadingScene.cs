@@ -64,10 +64,10 @@ namespace GoToSleep.UI
                         if (op.progress >= 0.9f)
                         {
                             op.allowSceneActivation = true;
-                            Time.timeScale = 0;
                         }
                     }
                     text.gameObject.SetActive(true);
+                    Time.timeScale = 0;
                     while (true)
                     {
                         yield return null;

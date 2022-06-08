@@ -10,6 +10,8 @@ namespace GoToSleep.Object
         public float attackCoolTime;
         [SerializeField] private BoxTrigger attackRange;
         public bool canAttack;
+
+        public int damage;
         private Transform Tr;
         private Enemy enemy;
 

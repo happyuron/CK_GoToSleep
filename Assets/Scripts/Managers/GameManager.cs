@@ -26,7 +26,6 @@ namespace GoToSleep.Manager
         public void GameClear()
         {
             UiManager.Instance.SetGameClearUi(true);
-            CharacterManager.Instance.Player.controller.DIsconnectController();
         }
 
         public void QuitGame()
