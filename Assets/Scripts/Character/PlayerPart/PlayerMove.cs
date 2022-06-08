@@ -28,6 +28,8 @@ namespace GoToSleep.Object
 
         private int curJumpCount;
 
+        private bool canDash;
+
         private float wallCheck;
 
         private float moveSpeed => Player.MoveSpeed;
@@ -41,6 +43,7 @@ namespace GoToSleep.Object
         private void Start()
         {
             speed = moveSpeed;
+            canDash = true;
         }
 
         public void MoveRight(float valueX)
@@ -78,23 +81,48 @@ namespace GoToSleep.Object
 
         public IEnumerator Dash()
         {
-            float direction = Player.spriteRenderer.flipX ? -3 : 3;
-            RaycastHit2D target = Physics2D.Raycast(Tr.position, new Vector2(direction, 0).normalized, 3, wallLayer);
-            if (target)
+            if (!Player.IsAttacking && canDash)
             {
-                Debug.Log(target.point);
-                direction = target.point.x;
+                StartCoroutine(DashCooltime());
+                canDash = false;
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 2);
+                float direction = Player.spriteRenderer.flipX ? -3 : 3;
+                RaycastHit2D target = Physics2D.Raycast(Tr.position, new Vector2(direction, 0).normalized, 3, wallLayer);
+                if (target)
+                {
+                    Debug.Log(target.point);
+                    direction = target.point.x;
+                }
+                else
+                {
+                    direction = Tr.position.x + direction;
+                }
+                while (Mathf.Abs(direction - Tr.position.x) > 0.1f)
+                {
+                    yield return null;
+                    Tr.position = Vector2.MoveTowards(Tr.position, new Vector2(direction, Tr.position.y), 10 * Time.deltaTime);
+                }
+                if (IsJumping)
+                {
+                    PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
+                    PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
+                }
+                else if (!IsMoving)
+                    PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
+                else
+                    PlayerAnimation.PlayerAnimFloat("Blend Normal", 1);
+
+
+                Rigid.velocity = Vector2.zero;
             }
-            else
-            {
-                direction = Tr.position.x + direction;
-            }
-            while (Mathf.Abs(direction - Tr.position.x) > 0.1f)
-            {
-                yield return null;
-                Tr.position = Vector2.MoveTowards(Tr.position, new Vector2(direction, Tr.position.y), 10 * Time.deltaTime);
-            }
-            Rigid.velocity = Vector2.zero;
+        }
+
+        private IEnumerator DashCooltime()
+        {
+            Debug.Log("true");
+            yield return new WaitForSeconds(1);
+            canDash = true;
         }
 
         private bool CheckGround()

@@ -29,6 +29,8 @@ namespace GoToSleep.Object
 
         public bool IsClimbing => Move.IsClimbing;
 
+        public bool IsAttacking => Attack.IsAttacking;
+
         public bool IsMoving => Move.IsMoving;
 
         public PlayerController controller;

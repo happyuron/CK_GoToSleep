@@ -28,8 +28,13 @@ namespace GoToSleep.Object
 
         public void StartCooltime()
         {
+            player.Attack.IsAttacking = false;
             player.Attack.StartCooltime();
-            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
+            if (!player.IsClimbing)
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
+            else
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
+
         }
 
     }

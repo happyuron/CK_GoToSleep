@@ -8,11 +8,22 @@ namespace GoToSleep.Object
     public class Door : InteractiveObj
     {
         public Item key;
+        private Collider2D box;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+        protected override void Init()
+        {
+            base.Init();
+            box = GetComponent<Collider2D>();
+        }
         protected override void StartInteraction()
         {
             if (UiManager.Instance.FindItemInInventory(key))
             {
-                Debug.Log("문이 열림");
+                box.enabled = false;
             }
         }
     }

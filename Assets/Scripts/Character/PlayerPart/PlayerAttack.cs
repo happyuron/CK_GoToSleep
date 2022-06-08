@@ -8,6 +8,8 @@ namespace GoToSleep.Object
     {
         public Weapon weapon;
 
+        public bool IsAttacking;
+
         private int curAttackCount;
 
         private int curUponAttackCount;
@@ -15,6 +17,7 @@ namespace GoToSleep.Object
         private int curDownAttackCount;
 
         private float curAttackCooltime;
+
 
 
         private void Start()
@@ -26,6 +29,7 @@ namespace GoToSleep.Object
         {
             PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
             PlayerAnimation.PlayerAnimFloat("Blend Attack", 0);
+            IsAttacking = true;
             curUponAttackCount = 0;
             curDownAttackCount = 0;
             weapon.Attack(ref curAttackCount);
