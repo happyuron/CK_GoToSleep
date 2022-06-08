@@ -66,7 +66,7 @@ namespace GoToSleep.Object
                 wallCheck = moveVelocityX;
         }
 
-        public void Run(float value)
+        public void Run()
         {
             if (!IsJumping && !IsClimbing)
             {

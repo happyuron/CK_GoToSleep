@@ -82,6 +82,7 @@ namespace GoToSleep.Object
             CurState = PlayerState.Dead;
             Move.moveVelocityX = 0;
             controller.DIsconnectController();
+            UiManager.Instance.SetupGameOverUi();
         }
 
         public override void Revive()

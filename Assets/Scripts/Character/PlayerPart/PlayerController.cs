@@ -37,6 +37,10 @@ namespace GoToSleep.Object
 
         private InputAction showUi;
 
+        private InputAction run;
+
+        private bool isOneTap;
+
 
         protected override void Init()
         {
@@ -48,12 +52,14 @@ namespace GoToSleep.Object
             interact = playerControls.Player.Interaction;
             dash = playerControls.Player.Dash;
             showUi = playerControls.Player.ShowUi;
+            run = playerControls.Player.Run;
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
             interact.performed += Interacte;
             dash.performed += Dash;
             showUi.performed += ShowUi;
+            run.performed += Run;
         }
 
         private void OnEnable()
@@ -69,6 +75,7 @@ namespace GoToSleep.Object
             interact.Enable();
             dash.Enable();
             showUi.Enable();
+            run.Enable();
         }
         public void DIsconnectController()
         {
@@ -78,6 +85,8 @@ namespace GoToSleep.Object
             interact.Disable();
             dash.Disable();
             showUi.Disable();
+            run.Disable();
+
         }
         private void Move(InputAction.CallbackContext ctx)
         {
@@ -85,10 +94,12 @@ namespace GoToSleep.Object
             {
                 Player.Move.MoveRight(ctx.ReadValue<Vector2>().x);
             }
-            else if (ctx.interaction is TapInteraction)
-            {
-                Player.Move.Run(ctx.ReadValue<Vector2>().x);
-            }
+        }
+
+        private void Run(InputAction.CallbackContext ctx)
+        {
+            if (ctx.interaction is TapInteraction)
+                Player.Move.Run();
         }
         public void Attack(InputAction.CallbackContext ctx)
         {

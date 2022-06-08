@@ -20,6 +20,8 @@ namespace GoToSleep.Manager
         public SettingUi settingUi;
 
         public LoadingScene loading;
+
+        public GameOverUi gameOverUi;
         public void SetActiveTabUi(bool value)
         {
             gameDescription.gameObject.SetActive(value);
@@ -64,6 +66,11 @@ namespace GoToSleep.Manager
         public void LoadScene(int index)
         {
             loading.LoadScene(index);
+        }
+
+        public void SetupGameOverUi()
+        {
+            gameOverUi.SetActive(true);
         }
     }
 }

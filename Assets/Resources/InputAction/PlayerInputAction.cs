@@ -33,7 +33,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""id"": ""488249fa-f487-4357-9794-60947fcc4965"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2),Tap"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -88,6 +88,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""e06b3d7a-854b-4ddc-b1a1-179afc22b989"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -311,6 +320,28 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""ShowUi"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06d70964-6e53-4568-902c-fbc8046a0081"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b07b76f-6cd6-462d-b147-534174f0f215"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -415,6 +446,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_ShowUi = m_Player.FindAction("ShowUi", throwIfNotFound: true);
+        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         // System
         m_System = asset.FindActionMap("System", throwIfNotFound: true);
         m_System_Back = m_System.FindAction("Back", throwIfNotFound: true);
@@ -484,6 +516,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interaction;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_ShowUi;
+    private readonly InputAction m_Player_Run;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -495,6 +528,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @ShowUi => m_Wrapper.m_Player_ShowUi;
+        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -525,6 +559,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @ShowUi.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
                 @ShowUi.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
                 @ShowUi.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShowUi;
+                @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -550,6 +587,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @ShowUi.started += instance.OnShowUi;
                 @ShowUi.performed += instance.OnShowUi;
                 @ShowUi.canceled += instance.OnShowUi;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -641,6 +681,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnInteraction(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnShowUi(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
     public interface ISystemActions
     {
