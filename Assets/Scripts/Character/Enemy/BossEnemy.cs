@@ -12,7 +12,15 @@ namespace GoToSleep.Object
         private void Start()
         {
             GameManager.Instance.SetGoalEnemy(this);
+        }
 
+        public override void CharacterDead()
+        {
+            base.CharacterDead();
+            if (!CharacterManager.Instance.FindEnemy<BossEnemy>())
+            {
+                GameManager.Instance.GameClear();
+            }
         }
     }
 }

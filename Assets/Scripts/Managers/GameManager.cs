@@ -23,6 +23,11 @@ namespace GoToSleep.Manager
             UiManager.Instance.AddText(boss.GetEnemyIndex(), boss.GetEnemyDescription());
             UiManager.Instance.SetDescription(goal.GetEnemyIndex(), goal.GetEnemyDescription());
         }
+        public void GameClear()
+        {
+            UiManager.Instance.SetGameClearUi(true);
+            CharacterManager.Instance.Player.controller.DIsconnectController();
+        }
 
         public void QuitGame()
         {

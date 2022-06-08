@@ -26,5 +26,10 @@ namespace GoToSleep.Object
         {
             enemy.attack.IsAttacking = false;
         }
+
+        protected virtual void Dead()
+        {
+            enemy.gameObject.SetActive(false);
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace GoToSleep.Object
 
         public bool IsMoving => Move.IsMoving;
 
-        private PlayerController controller;
+        public PlayerController controller;
 
 
         protected override void Init()

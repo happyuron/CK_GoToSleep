@@ -21,5 +21,20 @@ namespace GoToSleep.Manager
             return Player.GetComponent<T>() ?? FindObjectOfType<T>() ?? Player.gameObject.AddComponent<T>();
         }
 
+        public bool FindEnemy<T>() where T : Enemy
+        {
+            var tmp = FindObjectsOfType<T>();
+
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                if (tmp[i].state != EnemyState.Dead)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

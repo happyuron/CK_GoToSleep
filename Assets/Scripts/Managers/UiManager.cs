@@ -22,6 +22,8 @@ namespace GoToSleep.Manager
         public LoadingScene loading;
 
         public GameOverUi gameOverUi;
+
+        public GameObject gameClearUi;
         public void SetActiveTabUi(bool value)
         {
             gameDescription.gameObject.SetActive(value);
@@ -55,7 +57,10 @@ namespace GoToSleep.Manager
                 InputManager.Instance.action -= InputManager.Instance.HidePopup;
                 InputManager.Instance.action += InputManager.Instance.HideSetting;
             }
-
+        }
+        public void SetGameClearUi(bool value)
+        {
+            gameClearUi.SetActive(value);
         }
 
         public void PopUpUiActive(bool value)

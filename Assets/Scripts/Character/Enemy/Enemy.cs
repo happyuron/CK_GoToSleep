@@ -11,6 +11,8 @@ namespace GoToSleep.Object
     public class Enemy : Character
     {
 
+        public EnemyState state;
+
         public bool isMoving => move.IsMoving;
 
         public bool isAttacking => attack.IsAttacking;
@@ -43,8 +45,11 @@ namespace GoToSleep.Object
 
         public override void CharacterDead()
         {
+            state = EnemyState.Dead;
             IsDead = true;
+            Rigid.velocity = Vector2.zero;
             gameObject.layer = LayerMask.NameToLayer("NonHitLayer");
+            Anim.SetInteger("State", (int)EnemyState.Dead);
         }
 
 
