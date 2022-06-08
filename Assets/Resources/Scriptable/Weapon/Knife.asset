@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6516acdb6ea7ab42939f4b469537352, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  <WeaponName>k__BackingField: 
-  <Description>k__BackingField: 
+  <WeaponName>k__BackingField: Basic Weapon
+  <Description>k__BackingField: weapon
   <AttackDamage>k__BackingField: 5
   <AttackCooltime>k__BackingField: 2
   <DamageEffect>k__BackingField: {fileID: 0}
-  <AttackInfos>k__BackingField: []
-  <UponAttackInfos>k__BackingField: []
-  <DownAttackInfos>k__BackingField: []
+  <AttackInfos>k__BackingField:
+  - Offset: {x: 1.43, y: 0, z: 0}
+    Size: {x: 1.62, y: 1.25}
+    <Damage>k__BackingField: 10
+  <UponAttackInfos>k__BackingField:
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0
+  <DownAttackInfos>k__BackingField:
+  - Offset: {x: 0, y: 0, z: 0}
+    Size: {x: 0, y: 0}
+    <Damage>k__BackingField: 0

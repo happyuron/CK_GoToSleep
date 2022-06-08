@@ -14,6 +14,9 @@ namespace GoToSleep.Object
         public bool isMoving => move.IsMoving;
 
         public bool isAttacking => attack.IsAttacking;
+
+        public bool IsDead { get; private set; }
+
         public EnemyAttack attack;
         private EnemyMove move;
 
@@ -38,6 +41,11 @@ namespace GoToSleep.Object
             return enemyInfo.Description;
         }
 
+        public override void CharacterDead()
+        {
+            IsDead = true;
+            gameObject.layer = LayerMask.NameToLayer("NonHitLayer");
+        }
 
 
 

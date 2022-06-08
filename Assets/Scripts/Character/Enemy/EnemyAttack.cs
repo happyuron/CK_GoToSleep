@@ -49,12 +49,13 @@ namespace GoToSleep.Object
         }
         private void FixedUpdate()
         {
-            if (CheckAttackRange() && canAttack)
-            {
-                canAttack = false;
-                IsAttacking = true;
-                enemy.Anim.SetInteger("State", (int)EnemyState.Attack);
-            }
+            if (!enemy.IsDead)
+                if (CheckAttackRange() && canAttack)
+                {
+                    canAttack = false;
+                    IsAttacking = true;
+                    enemy.Anim.SetInteger("State", (int)EnemyState.Attack);
+                }
         }
 
 

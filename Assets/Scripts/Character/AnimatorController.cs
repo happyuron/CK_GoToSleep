@@ -29,6 +29,7 @@ namespace GoToSleep.Object
         public void StartCooltime()
         {
             player.Attack.StartCooltime();
+            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
         }
 
     }

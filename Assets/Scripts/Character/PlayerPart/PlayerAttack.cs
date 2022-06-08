@@ -24,6 +24,8 @@ namespace GoToSleep.Object
 
         public void Attack()
         {
+            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
+            PlayerAnimation.PlayerAnimFloat("Blend Attack", 0);
             curUponAttackCount = 0;
             curDownAttackCount = 0;
             weapon.Attack(ref curAttackCount);

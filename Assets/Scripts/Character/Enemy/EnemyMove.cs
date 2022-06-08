@@ -109,11 +109,14 @@ namespace GoToSleep.Object
         }
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
-            if (!enemy.isAttacking)
-                Move();
-            else
-                Rigid.velocity = new Vector2(0, Rigid.velocity.y);
+            if (!enemy.IsDead)
+            {
+                base.FixedUpdate();
+                if (!enemy.isAttacking)
+                    Move();
+                else
+                    Rigid.velocity = new Vector2(0, Rigid.velocity.y);
+            }
         }
 
         protected override void OnDrawGizmos()
