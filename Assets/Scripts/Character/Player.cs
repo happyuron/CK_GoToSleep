@@ -52,10 +52,22 @@ namespace GoToSleep.Object
 
         public void PlayAttackAnimation(int attackIndex)
         {
-            if (Attack.GetCoolTime() <= 0)
+            Debug.Log(Attack.GetAttackCoolTime());
+            if (Attack.GetAttackCoolTime() <= 0)
             {
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
-                PlayerAnimation.PlayerAnimFloat("Blend Attack", attackIndex);
+                PlayerAnimation.PlayerAnimFloat("Blend Attack", 0);
+            }
+        }
+
+        public void PlayAttackSkillAnimation()
+        {
+            Debug.Log(Attack.GetSkillCoolTime());
+
+            if (Attack.GetSkillCoolTime() <= 0)
+            {
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
+                PlayerAnimation.PlayerAnimFloat("Blend Attack", 1);
             }
         }
 

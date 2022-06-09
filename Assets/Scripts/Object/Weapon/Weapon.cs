@@ -44,6 +44,11 @@ namespace GoToSleep.Object
 
         }
 
+        public virtual void SkillAttack(int damage)
+        {
+
+        }
+
         public virtual void DownAttack(ref int index)
         {
 

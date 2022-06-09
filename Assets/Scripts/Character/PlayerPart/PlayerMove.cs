@@ -26,6 +26,8 @@ namespace GoToSleep.Object
 
         public float moveVelocityX;
 
+        private IEnumerator jumpCoroutine;
+
         private int curJumpCount;
 
         private bool canDash;
@@ -74,14 +76,14 @@ namespace GoToSleep.Object
             if (!IsJumping && !IsClimbing)
             {
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
-                PlayerAnimation.PlayerAnimFloat("Blend Normal", 3);
+                PlayerAnimation.PlayerAnimFloat("Blend Normal", 1);
                 speed = runSpeed;
             }
         }
 
         public IEnumerator Dash()
         {
-            if (!Player.IsAttacking && canDash)
+            if (!Player.IsAttacking && canDash && !IsClimbing)
             {
                 StartCoroutine(DashCooltime());
                 canDash = false;
@@ -106,7 +108,11 @@ namespace GoToSleep.Object
                 if (IsJumping)
                 {
                     PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
-                    PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
+                    if (!IsMoving)
+                        PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
+                    else
+                        PlayerAnimation.PlayerAnimFloat("Blend Normal", 1);
+
                 }
                 else if (!IsMoving)
                     PlayerAnimation.PlayerAnimFloat("Blend Normal", 0);
@@ -120,8 +126,9 @@ namespace GoToSleep.Object
 
         private IEnumerator DashCooltime()
         {
-            Debug.Log("true");
+            Debug.Log("Waiting for cooltime");
             yield return new WaitForSeconds(1);
+            Debug.Log("Dash coolDown");
             canDash = true;
         }
 
@@ -137,9 +144,8 @@ namespace GoToSleep.Object
             {
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
                 PlayerAnimation.PlayerAnimFloat("Blend Jump", 0);
-
-                StopAllCoroutines();
-                wallCheck = moveVelocityX;
+                if (jumpCoroutine != null)
+                    StopCoroutine(jumpCoroutine);
                 wallCheck = CheckWall() ? 0 : moveVelocityX;
                 IsJumping = true;
                 IsClimbing = false;
@@ -158,7 +164,8 @@ namespace GoToSleep.Object
                     IsMoving = false;
                     IsClimbing = true;
                     Rigid.gravityScale = 0;
-                    StartCoroutine(ClimbingWhileSeconds(2));
+                    jumpCoroutine = ClimbingWhileSeconds();
+                    StartCoroutine(jumpCoroutine);
                     Rigid.velocity = Vector2.zero;
                     IsJumping = false;
                     curJumpCount--;
@@ -172,16 +179,16 @@ namespace GoToSleep.Object
             }
             else if ((!CheckWall() || CheckGround()) && IsClimbing)
             {
-                Debug.Log("GroundCheck");
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                 Rigid.gravityScale = Player.DefaultGravity;
                 IsClimbing = false;
                 IsJumping = false;
                 curJumpCount = 0;
             }
         }
-        private IEnumerator ClimbingWhileSeconds(float time)
+        private IEnumerator ClimbingWhileSeconds()
         {
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSeconds(2);
             Rigid.gravityScale = 0.5f;
         }
 

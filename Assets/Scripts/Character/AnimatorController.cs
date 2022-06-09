@@ -26,10 +26,15 @@ namespace GoToSleep.Object
             player.Attack.DownAttack();
         }
 
-        public void StartCooltime()
+        public void SkillAttack()
+        {
+            player.Attack.AttackSkill();
+        }
+
+        public void StartAttackCooltime()
         {
             player.Attack.IsAttacking = false;
-            player.Attack.StartCooltime();
+            player.Attack.StartAttackCooltime();
             if (!player.IsClimbing)
                 PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
             else
@@ -37,5 +42,14 @@ namespace GoToSleep.Object
 
         }
 
+        public void StartSkillCooltime()
+        {
+            player.Attack.IsAttacking = false;
+            player.Attack.StartSkillCooltime();
+            if (!player.IsClimbing)
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
+            else
+                PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Jump);
+        }
     }
 }

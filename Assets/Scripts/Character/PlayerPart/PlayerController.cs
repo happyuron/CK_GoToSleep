@@ -39,6 +39,8 @@ namespace GoToSleep.Object
 
         private InputAction run;
 
+        private InputAction skill1;
+
         private bool isOneTap;
 
 
@@ -53,6 +55,8 @@ namespace GoToSleep.Object
             dash = playerControls.Player.Dash;
             showUi = playerControls.Player.ShowUi;
             run = playerControls.Player.Run;
+            skill1 = playerControls.Player.Skill1;
+
             move.performed += Move;
             attack.performed += Attack;
             jump.performed += Jump;
@@ -60,6 +64,7 @@ namespace GoToSleep.Object
             dash.performed += Dash;
             showUi.performed += ShowUi;
             run.performed += Run;
+            skill1.performed += Skill1;
         }
 
         private void OnEnable()
@@ -76,6 +81,7 @@ namespace GoToSleep.Object
             dash.Enable();
             showUi.Enable();
             run.Enable();
+            skill1.Enable();
         }
         public void DIsconnectController()
         {
@@ -86,6 +92,8 @@ namespace GoToSleep.Object
             dash.Disable();
             showUi.Disable();
             run.Disable();
+            skill1.Disable();
+
 
         }
         private void Move(InputAction.CallbackContext ctx)
@@ -103,8 +111,8 @@ namespace GoToSleep.Object
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            int index = Keyboard.current.downArrowKey.isPressed && Player.IsJumping ? 0 : Keyboard.current.upArrowKey.isPressed ? 1 : 2;
-            Player.PlayAttackAnimation(index);
+            //int index = Keyboard.current.downArrowKey.isPressed && Player.IsJumping ? 2 : Keyboard.current.upArrowKey.isPressed ? 1 : 0;
+            Player.PlayAttackAnimation(0);
         }
         public void Jump(InputAction.CallbackContext ctx)
         {
@@ -121,6 +129,11 @@ namespace GoToSleep.Object
         public void Dash(InputAction.CallbackContext ctx)
         {
             StartCoroutine(Player.Move.Dash());
+        }
+
+        public void Skill1(InputAction.CallbackContext ctx)
+        {
+            Player.PlayAttackSkillAnimation();
         }
 
         public void ShowUi(InputAction.CallbackContext ctx)

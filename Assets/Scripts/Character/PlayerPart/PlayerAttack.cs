@@ -18,6 +18,8 @@ namespace GoToSleep.Object
 
         private float curAttackCooltime;
 
+        private float curSkillCooltime;
+
 
 
         private void Start()
@@ -27,13 +29,18 @@ namespace GoToSleep.Object
 
         public void Attack()
         {
-            PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Attack);
-            PlayerAnimation.PlayerAnimFloat("Blend Attack", 0);
             IsAttacking = true;
             curUponAttackCount = 0;
             curDownAttackCount = 0;
             weapon.Attack(ref curAttackCount);
         }
+
+        public void AttackSkill()
+        {
+            IsAttacking = true;
+            weapon.SkillAttack(weapon.WeaponInformation.AttackDamage + 1);
+        }
+
         public void UponAttack()
         {
             curAttackCount = 0;
@@ -46,23 +53,45 @@ namespace GoToSleep.Object
             curUponAttackCount = 0;
             weapon.DownAttack(ref curDownAttackCount);
         }
-        private IEnumerator UpdateCooltime()
+        private IEnumerator UpdateAttackCooltime()
         {
-            curAttackCooltime = weapon.WeaponInformation.AttackCooltime;
+            curAttackCooltime = 2;
+            Debug.Log(curAttackCooltime);
             while (curAttackCooltime > 0)
             {
                 yield return null;
                 curAttackCooltime -= Time.deltaTime;
+                Debug.Log(curAttackCooltime);
+            }
+        }
+        private IEnumerator UpdateSkillCooltime()
+        {
+            curSkillCooltime = weapon.WeaponInformation.AttackCooltime;
+            while (curSkillCooltime > 0)
+            {
+                yield return null;
+                curSkillCooltime -= Time.deltaTime;
             }
         }
 
-        public float GetCoolTime()
+        public float GetAttackCoolTime()
         {
             return curAttackCooltime;
         }
-        public void StartCooltime()
+
+        public float GetSkillCoolTime()
         {
-            StartCoroutine(UpdateCooltime());
+            return curSkillCooltime;
+        }
+        public void StartAttackCooltime()
+        {
+            StartCoroutine(UpdateAttackCooltime());
+        }
+
+
+        public void StartSkillCooltime()
+        {
+            StartCoroutine(UpdateSkillCooltime());
         }
     }
 }

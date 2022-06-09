@@ -38,6 +38,19 @@ namespace GoToSleep.Object
             index = index < attackCount - 1 ? index + 1 : 0;
         }
 
+        public override void SkillAttack(int damage)
+        {
+            var enemies = CheckBoxOverlap(WeaponInformation.AttackInfos, 0);
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy enemy = enemies[i].GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.GetDamaged(damage);
+                }
+            }
+        }
+
         public override void UponAttack(ref int index)
         {
             var enemies = CheckBoxOverlap(WeaponInformation.UponAttackInfos, index);
