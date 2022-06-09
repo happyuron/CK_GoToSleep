@@ -41,7 +41,7 @@ namespace GoToSleep.Object
 
         private InputAction skill1;
 
-        private bool isOneTap;
+        private int tapCount;
 
 
         protected override void Init()
@@ -106,6 +106,8 @@ namespace GoToSleep.Object
 
         private void Run(InputAction.CallbackContext ctx)
         {
+            if (ctx.control.IsPressed())
+                tapCount++;
             if (ctx.interaction is TapInteraction)
                 Player.Move.Run();
         }

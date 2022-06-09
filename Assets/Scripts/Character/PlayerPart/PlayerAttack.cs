@@ -16,7 +16,7 @@ namespace GoToSleep.Object
 
         private int curDownAttackCount;
 
-        private float curAttackCooltime;
+        public float curAttackCooltime;
 
         private float curSkillCooltime;
 
@@ -55,13 +55,11 @@ namespace GoToSleep.Object
         }
         private IEnumerator UpdateAttackCooltime()
         {
-            curAttackCooltime = 2;
-            Debug.Log(curAttackCooltime);
+            curAttackCooltime = weapon.WeaponInformation.AttackCooltime;
             while (curAttackCooltime > 0)
             {
                 yield return null;
                 curAttackCooltime -= Time.deltaTime;
-                Debug.Log(curAttackCooltime);
             }
         }
         private IEnumerator UpdateSkillCooltime()
