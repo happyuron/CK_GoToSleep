@@ -23,7 +23,7 @@ namespace GoToSleep.Object
     }
     public class PlayerController : PlayerPart<Player>
     {
-        public PlayerInputAction playerControls;
+        private PlayerInputAction playerControls;
 
         private InputAction move;
 
