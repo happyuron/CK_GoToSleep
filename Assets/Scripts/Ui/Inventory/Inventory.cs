@@ -45,5 +45,16 @@ namespace GoToSleep.UI
             }
             return null;
         }
+
+        public void RemoveItem(Item item)
+        {
+            for (int i = 0; i < slotList.Length; i++)
+            {
+                if (slotList[i].isFull && item == slotList[i].GetItem())
+                {
+                    slotList[i].RemoveItem();
+                }
+            }
+        }
     }
 }

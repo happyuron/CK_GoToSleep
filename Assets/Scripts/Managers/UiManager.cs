@@ -34,6 +34,14 @@ namespace GoToSleep.Manager
             return inventory.FindItemInInventory(item);
         }
 
+        public void RemoveItem(Item item)
+        {
+            if (inventory.FindItemInInventory(item))
+            {
+                inventory.RemoveItem(item);
+            }
+        }
+
         public void UpdateHp()
         {
             hpUi.UpdateHp();
