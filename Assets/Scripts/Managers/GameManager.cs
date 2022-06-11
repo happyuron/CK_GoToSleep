@@ -9,7 +9,6 @@ namespace GoToSleep.Manager
     {
         private BossEnemy goal;
 
-
         public void SetGoalEnemy(BossEnemy boss)
         {
             if (goal == null)
