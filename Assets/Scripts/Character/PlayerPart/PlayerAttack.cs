@@ -38,7 +38,7 @@ namespace GoToSleep.Object
         public void AttackSkill()
         {
             IsAttacking = true;
-            weapon.SkillAttack(weapon.WeaponInformation.AttackDamage + 1);
+            weapon.SkillAttack(weapon.WeaponInformation.AttackInfos[0].Damage * 2);
         }
 
         public void UponAttack()

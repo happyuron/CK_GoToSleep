@@ -173,7 +173,6 @@ namespace GoToSleep.Object
                 }
                 else if (CheckGround() && Rigid.velocity.y <= 0.5f)
                 {
-                    Debug.Log("S");
                     PlayerAnimation.PlayerAnimInteger("State", (int)PlayerState.Normal);
                     IsJumping = false;
                     curJumpCount = 0;

@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ecdfd1ecf1ac2b4cac569f7f3e31894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
+  hp: 10
   invincibleTime: 1
   spriteRenderer: {fileID: 0}
   state: 0
