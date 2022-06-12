@@ -106,14 +106,13 @@ namespace GoToSleep.Object
 
         private void Run(InputAction.CallbackContext ctx)
         {
-            if (ctx.control.IsPressed())
-                tapCount++;
-            if (ctx.interaction is TapInteraction)
+            if (ctx.interaction is MultiTapInteraction)
+            {
                 Player.Move.Run();
+            }
         }
         public void Attack(InputAction.CallbackContext ctx)
         {
-            //int index = Keyboard.current.downArrowKey.isPressed && Player.IsJumping ? 2 : Keyboard.current.upArrowKey.isPressed ? 1 : 0;
             Player.PlayAttackAnimation(0);
         }
         public void Jump(InputAction.CallbackContext ctx)

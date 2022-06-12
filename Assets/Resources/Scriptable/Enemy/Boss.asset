@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23f535fb02062344bf3750350c2d01e, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  <EnemyIndex>k__BackingField: 0
+  <EnemyIndex>k__BackingField: 10
   <AttackDamage>k__BackingField: 2
-  <Description>k__BackingField: Boss, just Boss
+  <Description>k__BackingField: "\uC5C4\uCCAD \uD070 \uBCF4\uC2A4"

@@ -22,10 +22,16 @@ namespace GoToSleep.Object
         public Player player;
         public float minDistance;
 
+        public float wallCheckDistance;
+
+        public LayerMask wallLayer;
 
         public float speed;
 
         public bool detectOn;
+
+        private float wallCheck;
+
         private int direction;
         public bool IsMoving { get; private set; }
 
@@ -86,15 +92,16 @@ namespace GoToSleep.Object
                     IsMoving = false;
                     enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
                 }
-                if (CheckGround())
+                if (CheckGround() || CheckWall())
                 {
                     direction *= -1;
+                    detectOn = false;
                 }
                 if (!detectOn)
                 {
                     Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
                 }
-                else if (detectOn && !CheckGround())
+                else if (detectOn)
                 {
                     direction = Tr.position.x > player.Tr.position.x ? -1 : 1;
                     Rigid.velocity = new Vector2(direction * speed, Rigid.velocity.y);
@@ -105,7 +112,13 @@ namespace GoToSleep.Object
                 Rigid.velocity = new Vector2(0, Rigid.velocity.y);
                 enemy.Anim.SetInteger("State", (int)EnemyState.Idle);
             }
+            wallCheck = direction;
             enemy.spriteRenderer.flipX = direction > 0 ? true : direction < 0 ? false : enemy.spriteRenderer.flipX;
+        }
+        private RaycastHit2D CheckWall()
+        {
+            RaycastHit2D tmp = Physics2D.Raycast(Tr.position, new Vector2(wallCheck, 0).normalized, wallCheckDistance, wallLayer);
+            return tmp;
         }
         protected override void FixedUpdate()
         {
@@ -125,6 +138,7 @@ namespace GoToSleep.Object
             Gizmos.color = Color.red;
 
             Gizmos.DrawWireCube(transform.position + groundTrigger.offset, groundTrigger.size);
+            Gizmos.DrawLine(transform.position, transform.position + new Vector3(1, 0, 0) * wallCheckDistance);
         }
 
     }

@@ -13,11 +13,10 @@ namespace GoToSleep.UI
 
         private void Start()
         {
-            UiManager.Instance.gameClearUi = this;
             toMenu.onClick.AddListener(() =>
             {
                 UiManager.Instance.LoadScene(0);
-                gameObject.SetActive(false);
+                SetActive(false);
             });
             quitGame.onClick.AddListener(() => GameManager.Instance.QuitGame());
             SetActive(false);

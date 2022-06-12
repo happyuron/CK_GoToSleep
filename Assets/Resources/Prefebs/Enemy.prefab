@@ -245,14 +245,18 @@ MonoBehaviour:
     m_Bits: 64
   target: {fileID: 0}
   groundTrigger:
-    offset: {x: 0, y: -2.39, z: 0}
-    size: {x: 0.58, y: 0.6}
+    offset: {x: 0, y: -2.69, z: 0}
+    size: {x: 0.58, y: 0.74}
     checkLayer:
       serializedVersion: 2
       m_Bits: 256
   enemy: {fileID: 0}
   player: {fileID: 0}
   minDistance: 1.9
+  wallCheckDistance: 1.17
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
   speed: 3
   detectOn: 0
 --- !u!70 &2617877076453731703

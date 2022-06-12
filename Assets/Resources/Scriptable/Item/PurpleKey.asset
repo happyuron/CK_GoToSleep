@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3670483d3166d2d44bb0f984fc91b603, type: 3}
   m_Name: PurpleKey
   m_EditorClassIdentifier: 
-  <ItemIndex>k__BackingField: 0
+  <ItemIndex>k__BackingField: 101
   <ItemName>k__BackingField: 
   <Description>k__BackingField: 

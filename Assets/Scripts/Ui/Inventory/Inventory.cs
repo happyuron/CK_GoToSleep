@@ -40,7 +40,7 @@ namespace GoToSleep.UI
         {
             for (int i = 0; i < slotList.Length; i++)
             {
-                if (slotList[i].isFull && item == slotList[i].GetItem())
+                if (item == slotList[i].GetItem())
                     return slotList[i].GetItem();
             }
             return null;

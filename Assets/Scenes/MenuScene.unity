@@ -3196,8 +3196,8 @@ MonoBehaviour:
   popUpUi: {fileID: 611839276}
   settingUi: {fileID: 372351718}
   loading: {fileID: 701592049}
-  gameOverUi: {fileID: 0}
-  gameClearUi: {fileID: 0}
+  gameOverUi: {fileID: 1669073918}
+  gameClearUi: {fileID: 78779315}
 --- !u!1 &1527347012
 GameObject:
   m_ObjectHideFlags: 0

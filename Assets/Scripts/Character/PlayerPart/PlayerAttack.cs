@@ -64,7 +64,7 @@ namespace GoToSleep.Object
         }
         private IEnumerator UpdateSkillCooltime()
         {
-            curSkillCooltime = weapon.WeaponInformation.AttackCooltime;
+            curSkillCooltime = 6;
             while (curSkillCooltime > 0)
             {
                 yield return null;

@@ -25,7 +25,6 @@ namespace GoToSleep.UI
                 UiManager.Instance.LoadScene(0);
                 SetActive(false);
             });
-            UiManager.Instance.gameOverUi = this;
             SetActive(false);
         }
 

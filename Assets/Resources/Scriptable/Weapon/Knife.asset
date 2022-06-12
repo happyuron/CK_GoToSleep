@@ -20,7 +20,7 @@ MonoBehaviour:
   <AttackInfos>k__BackingField:
   - Offset: {x: 1.43, y: 0, z: 0}
     Size: {x: 1.62, y: 1.25}
-    <Damage>k__BackingField: 10
+    <Damage>k__BackingField: 5
   <UponAttackInfos>k__BackingField:
   - Offset: {x: 0, y: 0, z: 0}
     Size: {x: 0, y: 0}

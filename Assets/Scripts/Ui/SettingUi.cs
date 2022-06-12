@@ -42,7 +42,6 @@ namespace GoToSleep.UI
         {
             mainSound.text = GetPercentage(mainSoundBar.value);
             soundEffect.text = GetPercentage(soundEffectBar.value);
-            UiManager.Instance.settingUi = this;
             SetActive(false);
         }
 

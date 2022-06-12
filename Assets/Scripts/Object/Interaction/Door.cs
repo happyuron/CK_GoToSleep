@@ -27,6 +27,7 @@ namespace GoToSleep.Object
 
         private IEnumerator FadeOut()
         {
+            Debug.Log("Start");
             while (spriteRenderer.color.a > 0)
             {
                 yield return null;
