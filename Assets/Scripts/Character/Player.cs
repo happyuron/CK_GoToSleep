@@ -97,6 +97,7 @@ namespace GoToSleep.Object
             Move.moveVelocityX = 0;
             controller.DIsconnectController();
             UiManager.Instance.SetupGameOverUi();
+            gameObject.SetActive(false);
         }
 
         public override void Revive()
