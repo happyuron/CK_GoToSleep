@@ -7,7 +7,7 @@ namespace GoToSleep.Object
 {
     public enum PlayerState
     {
-        Normal, Jump, Attack, Dead
+        Normal, Jump, Attack, Dead, End
     }
     public class Player : Character
     {
@@ -23,6 +23,7 @@ namespace GoToSleep.Object
         [field: SerializeField] public float RunSpeed { get; private set; }
         public PlayerState CurState { get; private set; }
         public InteractiveObj interactiveObj;
+        public PlayerController controller;
         public float DefaultGravity { get; private set; }
 
         public bool IsJumping => Move.IsJumping;
@@ -33,13 +34,12 @@ namespace GoToSleep.Object
 
         public bool IsMoving => Move.IsMoving;
 
-        public PlayerController controller;
+        public bool autoMode;
 
 
         protected override void Init()
         {
             base.Init();
-            DefaultGravity = Rigid.gravityScale;
             Move = GetComponent<PlayerMove>();
             Anim = GetComponentInChildren<Animator>();
             Attack = GetComponent<PlayerAttack>();
@@ -48,6 +48,7 @@ namespace GoToSleep.Object
             {
                 PlayerAnimation.defaultAnim = Anim;
             }
+            DefaultGravity = Rigid.gravityScale;
         }
 
         public void PlayAttackAnimation(int attackIndex)

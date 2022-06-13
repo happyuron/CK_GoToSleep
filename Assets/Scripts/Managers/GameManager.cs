@@ -24,7 +24,7 @@ namespace GoToSleep.Manager
         }
         public void GameClear()
         {
-            UiManager.Instance.SetGameClearUi(true);
+            UiManager.Instance.LoadScene(2);
         }
 
         public void QuitGame()

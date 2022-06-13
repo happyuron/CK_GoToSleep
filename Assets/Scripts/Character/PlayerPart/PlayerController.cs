@@ -69,7 +69,8 @@ namespace GoToSleep.Object
 
         private void OnEnable()
         {
-            ConnectController();
+            if (!Player.autoMode)
+                ConnectController();
         }
 
         public void ConnectController()

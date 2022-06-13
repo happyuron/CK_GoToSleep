@@ -15,7 +15,7 @@ MonoBehaviour:
   <WeaponName>k__BackingField: Basic Weapon
   <Description>k__BackingField: weapon
   <AttackDamage>k__BackingField: 5
-  <AttackCooltime>k__BackingField: 2
+  <AttackCooltime>k__BackingField: 1
   <DamageEffect>k__BackingField: {fileID: 0}
   <AttackInfos>k__BackingField:
   - Offset: {x: 1.43, y: 0, z: 0}
