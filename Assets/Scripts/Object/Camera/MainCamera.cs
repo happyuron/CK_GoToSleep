@@ -10,7 +10,7 @@ namespace GoToSleep.Object
         protected override void Start()
         {
             base.Start();
-            target = CharacterManager.Instance.Player;
+            target = FindObjectOfType<Player>();
         }
     }
 }

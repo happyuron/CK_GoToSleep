@@ -9,7 +9,10 @@ namespace GoToSleep.Object
     {
         public float fadeSpeed;
         public Item key;
+        public SpriteRenderer background;
+        public Sprite nextSprite;
         private SpriteRenderer spriteRenderer;
+
 
         protected override void Init()
         {
@@ -27,14 +30,22 @@ namespace GoToSleep.Object
 
         private IEnumerator FadeOut()
         {
-            Debug.Log("Start");
             while (spriteRenderer.color.a > 0)
             {
                 yield return null;
                 spriteRenderer.color = new Color(1, 1, 1, spriteRenderer.color.a - Time.deltaTime * fadeSpeed);
             }
 
+            ChangeSprite();
             gameObject.SetActive(false);
+
         }
+
+        public void ChangeSprite()
+        {
+            if (nextSprite != null)
+                background.sprite = nextSprite;
+        }
+
     }
 }

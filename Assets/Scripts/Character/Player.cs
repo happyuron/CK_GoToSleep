@@ -7,7 +7,7 @@ namespace GoToSleep.Object
 {
     public enum PlayerState
     {
-        Normal, Jump, Attack, Dead, End
+        Normal, Jump, Attack, Dead, End, End2
     }
     public class Player : Character
     {

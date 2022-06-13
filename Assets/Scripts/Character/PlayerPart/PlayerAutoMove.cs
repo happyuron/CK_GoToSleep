@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GoToSleep.Object
 {
@@ -22,6 +23,7 @@ namespace GoToSleep.Object
         public float moveSpeed;
         public AutoMove[] moves;
 
+        public Image image;
 
 
         private int index;
@@ -56,8 +58,24 @@ namespace GoToSleep.Object
                 }
                 index++;
             }
+
+            StartCoroutine(SetUpImage());
         }
 
+        private IEnumerator SetUpImage()
+        {
+            float a;
+            float time = 0;
+            while (image.color.a < 1)
+            {
+                yield return null;
+                time += Time.deltaTime / 3;
+                a = Mathf.Lerp(0, 1, time);
+                image.color = new Color(1, 1, 1, a);
+            }
+
+
+        }
 
     }
 }

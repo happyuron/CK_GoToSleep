@@ -14,7 +14,9 @@ namespace GoToSleep.Object
         public Transform Tr { get; private set; }
         public bool lerp;
         public float defaultPosZ;
+        public float defaultPosY;
         public float lerpSpeed;
+        public float curPosY;
 
         protected virtual void Awake()
         {
@@ -24,6 +26,7 @@ namespace GoToSleep.Object
         protected virtual void Start()
         {
             curPosZ = defaultPosZ;
+            curPosY = defaultPosY;
             action = lerp ? MoveToTargetLerp : MoveToTarget;
         }
 
@@ -41,12 +44,12 @@ namespace GoToSleep.Object
 
         private void MoveToTarget()
         {
-            Tr.position = new Vector3(target.transform.position.x, target.transform.position.y, curPosZ);
+            Tr.position = new Vector3(target.transform.position.x, target.transform.position.y + curPosY, curPosZ);
         }
 
         private void MoveToTargetLerp()
         {
-            Tr.position = Vector3.Lerp(Tr.position, new Vector3(target.transform.position.x, target.transform.position.y, curPosZ), lerpSpeed * Time.deltaTime);
+            Tr.position = Vector3.Lerp(Tr.position, new Vector3(target.transform.position.x, target.transform.position.y + curPosY, curPosZ), lerpSpeed * Time.deltaTime);
         }
 
         private void LateUpdate()
