@@ -35,6 +35,8 @@ namespace GoToSleep.Object
         private int direction;
         public bool IsMoving { get; private set; }
 
+        private Vector3 fixedTr;
+
         protected override void Awake()
         {
             base.Awake();
@@ -48,6 +50,22 @@ namespace GoToSleep.Object
             StartCoroutine(SetDirection());
 
         }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.GetComponent<Player>())
+                fixedTr = Tr.position;
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.GetComponent<Player>())
+            {
+                Tr.position = fixedTr;
+            }
+        }
+
+
         private IEnumerator SetDirection()
         {
             yield return new WaitForSeconds(3);
