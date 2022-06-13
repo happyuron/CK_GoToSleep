@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 5241819751743190688}
   - component: {fileID: 4640098153929340079}
   - component: {fileID: 2299779866348376053}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlockObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   target: {fileID: 0}
+  fadeSpeed: 0
   key: {fileID: 5241819752728314682}
+  background: {fileID: 0}
+  nextSprite: {fileID: 0}
 --- !u!212 &4640098153929340079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -269,7 +272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5241819752787119350}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CildrenTr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
